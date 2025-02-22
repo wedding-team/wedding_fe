@@ -84,13 +84,13 @@ function FormSignUp() {
                             className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
                         />
                         <label htmlFor="terms" className="ml-2 text-gray-900">
-                            Tôi đồng ý với các <a href="#" className="text-indigo-600 hover:underline">Điều khoản</a>
+                            Tôi đồng ý với các <a href="#" className="text-rose-600 hover:underline">Điều khoản</a>
                         </label>
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full bg-indigo-600 text-white py-2 rounded-md font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="w-full bg-rose-500 text-white py-2 rounded-md font-medium hover:bg-rose-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
                         Đăng ký
                     </button>
@@ -122,7 +122,7 @@ function FormSignUp() {
 
                 <p className="mt-6 text-center text-sm text-gray-600">
                     Bạn đã có tài khoản?
-                    <a href="/login" className="text-indigo-600 hover:underline ms-1">
+                    <a href="/login" className="text-rose-600 hover:underline ms-1">
                         Đăng nhập
                     </a>
                 </p>
