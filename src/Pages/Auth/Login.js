@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import AuthApi from "../../Apis/AuthApi";
 import Helper from "../../Utils/Helper";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -14,6 +15,8 @@ const validationSchema = Yup.object({
 });
 
 function Login() {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -27,6 +30,7 @@ function Login() {
           password: values.password,
         });
         console.log(res.data);
+        navigate("/wedding-info");
         Helper.toastSuccess("Đăng nhập thành công!");
       } catch (error) {
         console.log(error);
