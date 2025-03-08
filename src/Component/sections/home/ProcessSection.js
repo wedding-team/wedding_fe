@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import ProcessStep from '../ui/ProcessStep';
+import ProcessStep from './ProcessStep';
 
 const ProcessSection = () => {
     const navigate = useNavigate();

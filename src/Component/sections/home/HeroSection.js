@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import introVideo from '../../assets/videos/wedding_intro.mp4';
+import introVideo from '../../../assets/videos/wedding_intro.mp4';
 
 const HeroSection = () => {
     const navigate = useNavigate();

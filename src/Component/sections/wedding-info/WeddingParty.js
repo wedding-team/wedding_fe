@@ -1,8 +1,8 @@
 import React from 'react';
-import { House, User, MapPin, IdCard, QrCode, Upload } from 'lucide-react';
-import InputField from '../ui/InputField';
-import TextAreaField from '../ui/TextAreaField';
-import FileUpload from '../common/FileUpload';
+import { User, MapPin, IdCard, QrCode, Upload } from 'lucide-react';
+import InputField from './InputField';
+import TextAreaField from './TextAreaField';
+import FileUpload from '../../common/FileUpload';
 
 const WeddingParty = ({
                           title,
@@ -18,7 +18,6 @@ const WeddingParty = ({
             <div className={`p-6 ${gradient} text-white`}>
                 <h2 className="text-2xl font-bold flex items-center gap-2 justify-center">
                     {title}
-                    <House className="w-6 h-6" />
                 </h2>
             </div>
             <div className="p-6 space-y-4">
@@ -34,6 +33,7 @@ const WeddingParty = ({
                 />
 
                 <InputField
+                    color={title === 'Nhà Trai' ? 'indigo' : 'rose'}
                     label={`Tên ${title === 'Nhà Trai' ? 'chú rể' : 'cô dâu'}`}
                     icon={<User className={`w-4 h-4 ${title === 'Nhà Trai' ? 'text-indigo-500' : 'text-rose-500'}`} />}
                     name={`${prefix}_name`}
@@ -42,6 +42,7 @@ const WeddingParty = ({
                 />
 
                 <InputField
+                    color={title === 'Nhà Trai' ? 'indigo' : 'rose'}
                     label="Địa chỉ"
                     icon={<MapPin className={`w-4 h-4 ${title === 'Nhà Trai' ? 'text-indigo-500' : 'text-rose-500'}`} />}
                     name={`${prefix}_address`}
@@ -50,6 +51,7 @@ const WeddingParty = ({
                 />
 
                 <InputField
+                    color={title === 'Nhà Trai' ? 'indigo' : 'rose'}
                     label="Họ tên Bố"
                     icon={<User className={`w-4 h-4 ${title === 'Nhà Trai' ? 'text-indigo-500' : 'text-rose-500'}`} />}
                     name={`${prefix}_dad`}
@@ -58,6 +60,7 @@ const WeddingParty = ({
                 />
 
                 <InputField
+                    color={title === 'Nhà Trai' ? 'indigo' : 'rose'}
                     label="Họ tên Mẹ"
                     icon={<User className={`w-4 h-4 ${title === 'Nhà Trai' ? 'text-indigo-500' : 'text-rose-500'}`} />}
                     name={`${prefix}_mom`}
@@ -66,6 +69,7 @@ const WeddingParty = ({
                 />
 
                 <TextAreaField
+                    color={title === 'Nhà Trai' ? 'indigo' : 'rose'}
                     label={`Tiểu sử ${title === 'Nhà Trai' ? 'chú rể' : 'cô dâu'}`}
                     icon={<IdCard className={`w-4 h-4 ${title === 'Nhà Trai' ? 'text-indigo-500' : 'text-rose-500'}`} />}
                     name={`${prefix}_bio`}

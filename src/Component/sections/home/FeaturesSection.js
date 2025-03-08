@@ -1,5 +1,5 @@
 import React from 'react';
-import FeatureCard from '../ui/FeatureCard';
+import FeatureCard from './FeatureCard';
 import { Heart, Gift, MessageCircle, UserRoundCheck, Cloud, PenTool } from 'lucide-react';
 
 const FeaturesSection = () => {
