@@ -29,12 +29,13 @@ function Login() {
           email: values.email,
           password: values.password,
         });
-        console.log(res.data);
+        console.log(res.data.token.Authorization);
+        localStorage.setItem("token", res.data.token.Authorization);
         navigate("/wedding-info");
         Helper.toastSuccess("Đăng nhập thành công!");
       } catch (error) {
         console.log(error);
-        Helper.toastError("Đăng nhập thành công!");
+        Helper.toastError("Đăng nhập thất bại!");
       } finally {
         setSubmitting(false);
       }
