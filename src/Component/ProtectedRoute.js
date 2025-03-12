@@ -1,12 +1,14 @@
-import React from 'react';
-import {Navigate} from 'react-router-dom';
-import {useContext} from 'react';
-import {AuthContext} from '../context/AuthContext';
+import React, { useMemo } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const ProtectedRoute = ({children}) => {
-    const {user, loading} = useContext(AuthContext);
+const ProtectedRoute = () => {
+    const { isAuthenticated, loading } = useSelector(state => state.auth);
 
-    // Nếu đang kiểm tra token (loading = true), hiển thị màn hình chờ
+    const isUserAuthenticated = useMemo(() => {
+        return isAuthenticated || !!localStorage.getItem("accessToken");
+    }, [isAuthenticated]);
+
     if (loading) {
         return (
             <div className="flex min-h-screen items-center justify-center">
@@ -34,12 +36,7 @@ const ProtectedRoute = ({children}) => {
         );
     }
 
-    if (!user) {
-        return <Navigate to="/login" replace/>;
-    }
-
-
-    return children;
+    return isUserAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default ProtectedRoute;

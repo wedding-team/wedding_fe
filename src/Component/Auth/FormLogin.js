@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function FormLogin({ formik }) {
+function FormLogin({ formik, loading}) {
     return (
         <form className="mt-6 space-y-4" onSubmit={formik.handleSubmit}>
             <div>
@@ -63,15 +63,14 @@ function FormLogin({ formik }) {
                     Quên mật khẩu?
                 </Link>
             </div>
-
             <button
                 type="submit"
                 className={`max-md:h-12 w-full bg-rose-500 text-white py-2 rounded-md font-medium hover:bg-rose-600 transition-colors duration-200 ${
                     formik.isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
-                disabled={formik.isSubmitting}
+                disabled={formik.isSubmitting || loading}
             >
-                {formik.isSubmitting ? 'Đang đăng nhập...' : 'Đăng nhập'}
+                {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
             </button>
         </form>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Upload } from 'lucide-react';
+import { LuUpload } from "react-icons/lu";
 
 const FileUpload = ({ label, name, previewUrl, onChange, accept, placeholderIcon, bgColor, textColor }) => {
     return (
@@ -12,7 +12,7 @@ const FileUpload = ({ label, name, previewUrl, onChange, accept, placeholderIcon
                 )}
             </div>
             <label className={`cursor-pointer ${bgColor} ${textColor} px-4 py-2 rounded-lg flex items-center gap-2`}>
-                <Upload className="w-4 h-4" />
+                <LuUpload className="w-4 h-4" />
                 {label}
                 <input
                     type="file"
