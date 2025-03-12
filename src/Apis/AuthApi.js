@@ -1,11 +1,11 @@
-import instance from "./instance";
+import apiClient from "./apiClient";
 
 class AuthApi {
     static login(data) {
-        return instance.post('/api/v1/login', data)
+        return apiClient.post('/api/v1/login', data)
     }
     static signUp(data) {
-        return instance.post('/api/v1/signup', data)
+        return apiClient.post('/api/v1/signup', data)
     }
 }
 

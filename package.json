@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
     "@reduxjs/toolkit": "^2.5.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -11,7 +13,6 @@
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
     "formik": "^2.4.6",
-    "lucide-react": "^0.477.0",
     "navigate": "^0.3.6",
     "postcss": "^8.5.3",
     "postcss-cli": "^11.0.0",
