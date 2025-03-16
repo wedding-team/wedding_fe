@@ -6,9 +6,10 @@ import SignUp from './Pages/Auth/SignUp';
 import WeddingInvitation from './Pages/./WeddingInvitation';
 import HomePage from './Pages/Home';
 import WeddingEvent from "./Pages/WeddingEvent";
-import WeddingImage from "./Pages/WeddingImage";
 import WeddingLayout from "./Layout/WeddingLayout";
 import ProtectedRoute from "./Component/ProtectedRoute";
+import WeddingLoveStory from "./Pages/WeddingLoveStory";
+import WeddingGallery from "./Pages/WeddingGallery";
 
 function App() {
     return (
@@ -21,7 +22,8 @@ function App() {
                     <Route path="/wedding" element={<WeddingLayout/>}>
                         <Route path="info" element={<WeddingInvitation/>}/>
                         <Route path="event" element={<WeddingEvent/>}/>
-                        <Route path="image" element={<WeddingImage/>}/>
+                        <Route path="image" element={<WeddingGallery/>}/>
+                        <Route path="love-story" element={<WeddingLoveStory/>}/>
                     </Route>
                 </Route>
             </Routes>

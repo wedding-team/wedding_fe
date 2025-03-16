@@ -31,7 +31,7 @@ const HeroSection = () => {
                         Chọn mẫu cưới trọn gói theo cách riêng của bạn!
                     </p>
                     <button
-                        onClick={() => navigate('/login')}
+                        onClick={() => navigate('/wedding/info')}
                         className="bg-white text-pink-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-pink-50 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 duration-300"
                     >
                         Bắt Đầu Tạo Thiệp

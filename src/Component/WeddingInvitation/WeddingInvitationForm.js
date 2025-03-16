@@ -1,11 +1,11 @@
-import FormGroom from "./FormGroom";
-import FormBride from "./FormBride";
+import GroomForm from "./GroomForm";
+import BrideForm from "./BrideForm";
 
-function FormWeddingInvitation({ formik }) {
+function WeddingInvitationForm({ formik }) {
     return (
         <form className="flex flex-wrap justify-between shadow-sm bg-white p-5" onSubmit={formik.handleSubmit}>
-            <FormBride formik={formik}/>
-            <FormGroom formik={formik}/>
+            <BrideForm formik={formik}/>
+            <GroomForm formik={formik}/>
             <div className="w-full mt-5 flex justify-center">
                 <button
                     type="submit"
@@ -19,4 +19,4 @@ function FormWeddingInvitation({ formik }) {
     );
 }
 
-export default FormWeddingInvitation;
+export default WeddingInvitationForm;
