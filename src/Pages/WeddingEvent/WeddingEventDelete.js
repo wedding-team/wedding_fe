@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { deleteWeddingEvent } from "../../Redux/weddingEvent/weddingEventSlice";
 import ModalDelete from "../../Component/common/ModalDelete";
-import Helper from "../../utils/Helper";
+import Helper from "../../Utils/Helper";
 
 function WeddingEventDelete({ isOpen, onClose, event }) {
     const dispatch = useDispatch();

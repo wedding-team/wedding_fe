@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import LoveStoryApi from "../../apis/LoveStoryApi";
+import LoveStoryApi from "../../Apis/LoveStoryApi";
 import LoveStoryItem from "./LoveStoryItem";
 
 function LoveStoryList() {
