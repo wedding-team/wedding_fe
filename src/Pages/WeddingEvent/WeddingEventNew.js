@@ -4,7 +4,7 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import WeddingEventForm from "./WeddingEventForm";
 import {saveWeddingEvent} from "../../Redux/weddingEvent/weddingEventSlice";
-import Helper from "../../utils/Helper";
+import Helper from "../../Utils/Helper";
 
 const getCurrentDate = () => new Date().toISOString().split("T")[0];
 const getCurrentTime = () => new Date().toTimeString().slice(0, 5);

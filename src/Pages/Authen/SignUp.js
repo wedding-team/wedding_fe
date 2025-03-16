@@ -2,7 +2,7 @@ import {Toaster} from "sonner";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import FormSignUp from "../../Component/Auth/FormSignUp";
-import Helper from "../../utils/Helper";
+import Helper from "../../Utils/Helper";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";

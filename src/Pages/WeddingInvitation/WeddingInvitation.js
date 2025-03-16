@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useCallback} from "react";
 import WeddingInvitationForm from "./WeddingInvitationForm";
 import {useFormik} from "formik";
-import Helper from "../../utils/Helper";
+import Helper from "../../Utils/Helper";
 import * as Yup from "yup";
-import WeddingInvitationApi from "../../apis/WeddingInvitationApi";
+import WeddingInvitationApi from "../../Apis/WeddingInvitationApi";
 
 const validationSchema = Yup.object({
     groom_name: Yup.string().required("Vui lòng nhập tên chú rể"),

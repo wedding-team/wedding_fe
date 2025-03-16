@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import WeddingGalleryApi from "../../apis/WeddingGalleryApi";
-import Helper from "../../utils/Helper";
+import WeddingGalleryApi from "../../Apis/WeddingGalleryApi";
+import Helper from "../../Utils/Helper";
 import WeddingGalleryItem from "./WeddingGalleryItem";
 import WeddingGalleryDelete from "./WeddingGalleryDelete";
 

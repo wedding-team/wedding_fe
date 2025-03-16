@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PhotoIcon } from "@heroicons/react/16/solid";
-import WeddingGalleryApi from "../../apis/WeddingGalleryApi";
-import Helper from "../../utils/Helper";
+import WeddingGalleryApi from "../../Apis/WeddingGalleryApi";
+import Helper from "../../Utils/Helper";
 
 function WeddingGalleryNew({ onUploadSuccess }) {
     const [isDragging, setIsDragging] = useState(false);

@@ -1,15 +1,15 @@
 import {Toaster} from 'sonner';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import '../src/index.css';
-import Login from './Pages/Auth/Login';
-import SignUp from './Pages/Auth/SignUp';
-import WeddingInvitation from './Pages/./WeddingInvitation';
 import HomePage from './Pages/Home';
-import WeddingEvent from "./Pages/WeddingEvent";
-import WeddingLayout from "./Layout/WeddingLayout";
 import ProtectedRoute from "./Component/ProtectedRoute";
-import WeddingLoveStory from "./Pages/WeddingLoveStory";
-import WeddingGallery from "./Pages/WeddingGallery";
+import Login from "./Pages/Authen/Login";
+import SignUp from "./Pages/Authen/SignUp";
+import WeddingLayout from "./Layouts/WeddingLayout";
+import WeddingInvitation from "./Pages/WeddingInvitation/WeddingInvitation";
+import WeddingEvent from "./Pages/WeddingEvent/WeddingEvent";
+import WeddingGallery from "./Pages/WeddingGallery/WeddingGallery";
+import LoveStory from "./Pages/LoveStory/LoveStory";
 
 function App() {
     return (
@@ -23,7 +23,7 @@ function App() {
                         <Route path="info" element={<WeddingInvitation/>}/>
                         <Route path="event" element={<WeddingEvent/>}/>
                         <Route path="image" element={<WeddingGallery/>}/>
-                        <Route path="love-story" element={<WeddingLoveStory/>}/>
+                        <Route path="love-story" element={<LoveStory/>}/>
                     </Route>
                 </Route>
             </Routes>
