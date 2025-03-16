@@ -26,7 +26,7 @@ function WeddingLayout() {
                 <NavItem to="/wedding/info" label="Thông tin thiệp cưới" isActive={isActive("/wedding/info")} />
                 <NavItem to="/wedding/event" label="Sự kiện cưới" isActive={isActive("/wedding/event")} />
                 <NavItem to="/wedding/image" label="Album ảnh" isActive={isActive("/wedding/image")} />
-                <NavItem to="#" label="Thông tin thiệp cưới" isActive={false} />
+                <NavItem to="/wedding/love-story" label="Câu chuyện tình yêu" isActive={isActive("/wedding/love-story")} />
             </div>
 
             <div className="min-h-screen bg-gradient-to-b from-rose-50 to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">

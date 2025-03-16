@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from "react";
-import FormWeddingInvitation from "../Component/WeddingInvitation/FormWeddingInvitation";
+import WeddingInvitationForm from "../Component/WeddingInvitation/WeddingInvitationForm";
 import {useFormik} from "formik";
 import Helper from "../Utils/Helper";
 import * as Yup from "yup";
@@ -16,10 +16,10 @@ const validationSchema = Yup.object({
     bride_mom: Yup.string().required("Vui lòng nhập tên mẹ cô dâu"),
     groom_bio: Yup.string(),
     bride_bio: Yup.string(),
-    groom_avatar_url: Yup.mixed(),
-    bride_avatar_url: Yup.mixed(),
-    groom_qr_url: Yup.mixed(),
-    bride_qr_url: Yup.mixed(),
+    groom_avatar_url: Yup.mixed().nullable(),
+    bride_avatar_url: Yup.mixed().nullable(),
+    groom_qr_url: Yup.mixed().nullable(),
+    bride_qr_url: Yup.mixed().nullable(),
 });
 
 const WeddingInvitation = () => {
@@ -87,7 +87,7 @@ const WeddingInvitation = () => {
         },
     });
 
-    return (<>{initialValues ? <FormWeddingInvitation formik={formik}/> : <p>Đang tải...</p>}</>);
+    return (<>{initialValues ? <WeddingInvitationForm formik={formik}/> : <p>Đang tải...</p>}</>);
 };
 
 export default WeddingInvitation;

@@ -1,95 +1,105 @@
-import { useEffect, useState } from "react";
-import WeddingEventApi from "../Apis/WeddingEventApi";
+import {useEffect, useMemo, useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import WeddingEventHeader from "../Component/WeddingEvent/WeddingEventHeader";
+import WeddingEventList from "../Component/WeddingEvent/WeddingEventList";
+import ModalForm from "../Component/common/ModalForm";
+import WeddingEventForm from "../Component/WeddingEvent/WeddingEventForm";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import {fetchWeddingEvents, saveWeddingEvent} from "../Redux/weddingEvent/weddingEventSlice";
 import Helper from "../Utils/Helper";
-import ModalDelete from "../Component/common/ModalDelete";
+
+const getCurrentDate = () => new Date().toISOString().split("T")[0];
+const getCurrentTime = () => new Date().toTimeString().slice(0, 5);
+
+const validationSchema = Yup.object({
+    title: Yup.string().required("Vui lòng nhập tên sự kiện"),
+    address: Yup.string().required("Vui lòng nhập địa chỉ"),
+    event_date: Yup.date()
+        .required("Vui lòng chọn ngày tổ chức")
+        .min(new Date().toISOString().split("T")[0], "Ngày tổ chức không được ở quá khứ"),
+    event_time: Yup.string().required("Vui lòng chọn giờ tổ chức"),
+    image: Yup.mixed(),
+});
 
 function WeddingEvent() {
-    const [weddingEvents, setWeddingEvents] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedEventId, setSelectedEventId] = useState(null);
+    const dispatch = useDispatch();
+    const { events, loading } = useSelector((state) => state.weddingEvents);
+
+    const [isFormModalOpen, setIsFormModalOpen] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
     useEffect(() => {
-        fetchWeddingEvents();
-    }, []);
+        dispatch(fetchWeddingEvents());
+    }, [dispatch]);
 
-    const fetchWeddingEvents = async () => {
-        try {
-            const response = await WeddingEventApi.getAllWeddingEvents();
-            setWeddingEvents(response.data.body);
-        } catch (error) {
-            console.error("Lỗi khi lấy danh sách sự kiện cưới:", error);
+    const openFormModal = (event = null) => {
+        setSelectedEvent(event);
+        setIsFormModalOpen(true);
+    };
+
+    const closeFormModal = () => {
+        setIsFormModalOpen(false);
+        setSelectedEvent(null);
+        formik.resetForm();
+    };
+
+    const initialValues = useMemo(() => ({
+        title: selectedEvent?.title || "",
+        address: selectedEvent?.address || "",
+        event_date: selectedEvent?.event_date || getCurrentDate(),
+        event_time: selectedEvent?.event_time || getCurrentTime(),
+        image_url: selectedEvent?.image_url || null,
+    }), [selectedEvent]);
+
+    const formik = useFormik({
+        initialValues,
+        enableReinitialize: true,
+        validationSchema,
+        onSubmit: async (values, { setSubmitting }) => {
+            try {
+                await dispatch(saveWeddingEvent({ id: selectedEvent?.id, data: values }));
+                Helper.toastSuccess(selectedEvent ? "Cập nhật sự kiện thành công!" : "Thêm sự kiện thành công!");
+            } catch (error) {
+                Helper.toastError("Lỗi khi lưu sự kiện!");
+            }
+            setSubmitting(false);
         }
-    };
-
-    const openDeleteModal = (id) => {
-        setSelectedEventId(id);
-        setIsModalOpen(true);
-    };
-
-    const handleDelete = async () => {
-        if (!selectedEventId) return;
-        try {
-            await WeddingEventApi.deleteWeddingEvent(selectedEventId);
-            setWeddingEvents(weddingEvents.filter(event => event.id !== selectedEventId));
-            Helper.toastSuccess("Xóa sự kiện thành công!");
-        } catch (error) {
-            console.error("Lỗi khi xoá sự kiện:", error);
-            Helper.toastError("Lỗi khi xóa");
-        }
-        setIsModalOpen(false);
-    };
+    });
 
     return (
         <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-gray-800">Danh sách sự kiện cưới</h2>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md">
-                    + Thêm mới
-                </button>
-            </div>
-            <div className="mt-4">
-                {weddingEvents.length > 0 ? (
-                    <ul className="space-y-4">
-                        {weddingEvents.map((event) => (
-                            <li key={event.id} className="flex items-center justify-between py-4 border-b-2">
-                                <div className="flex items-center">
-                                    <img src={event.image_url} alt="Ảnh sự kiện" className="w-24 h-24 object-cover rounded-lg shadow-md" />
-                                    <div className="ml-4">
-                                        <h3 className="text-lg font-semibold text-gray-800">{event.title}</h3>
-                                        <p className="text-gray-600">{event.address}</p>
-                                        <p className="text-sm text-gray-500">{event.event_date} - {event.event_time}</p>
-                                    </div>
-                                </div>
-                                <div className="flex space-x-2">
-                                    <button
-                                        className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded-lg text-sm"
-                                    >
-                                        Cập nhật
-                                    </button>
-                                    <button
-                                        className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-lg text-sm"
-                                        onClick={() => openDeleteModal(event.id)}
-                                    >
-                                        Xoá
-                                    </button>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p className="text-center text-gray-500">Không có sự kiện nào.</p>
-                )}
-            </div>
-
-            {isModalOpen && (
-                <ModalDelete
-                    isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                    onConfirm={handleDelete}
-                    title="Xóa sự kiện"
-                    description="Bạn có chắc chắn muốn xóa sự kiện này? Hành động này không thể hoàn tác."
-                />
+            <WeddingEventHeader onAdd={() => openFormModal()} />
+            {loading ? (
+                <p>Đang tải...</p>
+            ) : (
+                <WeddingEventList events={events} onEdit={openFormModal} />
             )}
+            <ModalForm
+                isOpen={isFormModalOpen}
+                onClose={closeFormModal}
+                title={selectedEvent ? "Cập nhật sự kiện" : "Thêm sự kiện mới"}
+            >
+                <form onSubmit={formik.handleSubmit}>
+                    <WeddingEventForm formik={formik} />
+                    <div className="flex justify-end mt-4">
+                        <button
+                            type="button"
+                            onClick={closeFormModal}
+                            className="mr-3 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+                        >
+                            Hủy
+                        </button>
+                        <button
+                            type="submit"
+                            className="px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+                            disabled={formik.isSubmitting}
+                        >
+                            {formik.isSubmitting ? "Đang lưu..." : "Lưu"}
+                        </button>
+                    </div>
+                </form>
+            </ModalForm>
         </div>
     );
 }

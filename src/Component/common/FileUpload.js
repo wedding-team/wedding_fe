@@ -1,12 +1,15 @@
 import React from 'react';
 import { LuUpload } from "react-icons/lu";
 
-const FileUpload = ({ label, name, previewUrl, onChange, accept, placeholderIcon, bgColor, textColor }) => {
+const FileUpload = ({ label, name, previewUrl, onChange, accept, placeholderIcon, bgColor, textColor, rounded = "circle", size = "w-32 h-32" }) => {
     return (
-        <div className="flex flex-col items-center">
-            <div className="w-32 h-32 rounded-full bg-gray-200 overflow-hidden mb-3 flex items-center justify-center">
+        <div className="flex flex-col items-center bỏd">
+            <div
+                className={`${size} bg-gray-200 overflow-hidden mb-3 flex items-center justify-center border-2
+                ${rounded === "circle" ? "rounded-full" : "rounded-md"}`}
+            >
                 {previewUrl ? (
-                    <img src={previewUrl} alt={label} className="w-full h-full object-cover" />
+                    <img src={previewUrl} alt={label} className="w-full h-full object-cover rounded-md " />
                 ) : (
                     placeholderIcon
                 )}
