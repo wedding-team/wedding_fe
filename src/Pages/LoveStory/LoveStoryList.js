@@ -1,42 +1,38 @@
 import {useEffect, useState} from "react";
-import LoveStoryApi from "../../Apis/LoveStoryApi";
 import LoveStoryItem from "./LoveStoryItem";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchLoveStories} from "../../redux/loveStory/loveStorySlice";
+import LoveStoryDelete from "./LoveStoryDelete";
 
-function LoveStoryList() {
-    const [loveStories, setLoveStories] = useState([])
+function LoveStoryList({onEdit}) {
+    const dispatch = useDispatch();
+    const { stories } = useSelector((state) => state.loveStories);
 
     useEffect(() => {
-        const fetchLoveStories = async () => {
-            try {
-                const res = await LoveStoryApi.getAllLoveStory();
-                setLoveStories(res.data.body || []);
-            } catch (e) {
-                console.error("Lỗi khi fetch ảnh:", e);
-            }
-        }
-        fetchLoveStories();
-    }, [])
+        dispatch(fetchLoveStories());
+    },[dispatch])
 
+    const [selectLoveStory, setSelectLoveStory] = useState(null);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+    const openDeleteModal = (loveStory) => {
+        setSelectLoveStory(loveStory);
+        setIsDeleteModalOpen(true);
+    };
 
     return (
         <div>
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-gray-800">Danh sách câu chuyện tình yêu</h2>
-                <button
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-sm shadow-md"
-                >
-                    + Thêm mới
-                </button>
-            </div>
-            {loveStories.length > 0 ? (
+            {stories?.length > 0 ? (
                 <ul className="space-y-4">
-                    {loveStories.map((loveStory) => (
-                        <LoveStoryItem key={loveStory.id} loveStory={loveStory}/>
+                    {stories.map((loveStory) => (
+                        <LoveStoryItem key={loveStory.id} loveStory={loveStory} onDelete={openDeleteModal} onEdit={onEdit}/>
                     ))}
                 </ul>
             ) : (
                 <p className="text-center text-gray-600">Không có câu chuyện tình yêu nào nào.</p>
             )}
+            <LoveStoryDelete isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)}
+                                loveStory={selectLoveStory}/>
         </div>
     )
 }

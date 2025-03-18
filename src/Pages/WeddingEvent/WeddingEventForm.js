@@ -1,16 +1,16 @@
-import FileUpload from "../../Component/common/FileUpload";
+import FileUpload from "../../components/common/FileUpload";
 import React from "react";
 
 function WeddingEventForm({ formik }) {
     return (
-        <div className="space-y-6 bg-white p-6" onSubmit={formik.handleSubmit}>
-            <div className="flex gap-6">
-                <div className="w-1/3 flex flex-col items-center">
+        <div className="space-y-6 bg-white p-6">
+            <div className="flex gap-6 items-center">
+                <div className="w-1/3 flex flex-col">
                     <FileUpload
                         label="Tải ảnh sự kiện"
                         name="image"
                         rounded="square"
-                        size="w-40 h-40"
+                        size="w-60 h-60"
                         previewUrl={formik.values.image_url}
                         onChange={(event) => {
                             const file = event.currentTarget.files[0];

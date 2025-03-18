@@ -1,39 +1,55 @@
-import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
-import React from "react";
-import UserStatusButton from "../Component/common/UserStatusButton";
+import {Link, Outlet, useNavigate, useLocation} from "react-router-dom";
+import UserStatusButton from "../components/common/UserStatusButton";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchWeddingInvitations} from "../redux/weddingInvitation/weddingInvitationSlice";
+import {useEffect} from "react";
+import {CiHeart} from "react-icons/ci";
 
 function WeddingLayout() {
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
+    const {weddingInvitation} = useSelector((state) => state.weddingInvitations);
 
-    const isActive = (path) => location.pathname === path;
+    useEffect(() => {
+        dispatch(fetchWeddingInvitations());
+    }, [dispatch]);
 
     return (
-        <div className="bg-gradient-to-b from-rose-50">
-            <div className="flex justify-between px-4 py-3 bg-white shadow-md">
-                <img
-                    onClick={() => navigate('/')}
-                    src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=rose&shade=500"
-                    alt="Logo"
-                    className="cursor-pointer h-10"
-                />
-                <div>
-                    <UserStatusButton />
+        <div className="bg-stone-100 min-h-screen">
+            <div className="bg-white drop-shadow-sm">
+                <div className="container mx-auto flex justify-between items-center px-6 py-2">
+                    <img
+                        onClick={() => navigate('/')}
+                        src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=rose&shade=500"
+                        alt="Logo"
+                        className="cursor-pointer h-10"
+                    />
+                    <UserStatusButton/>
                 </div>
             </div>
-
-            <div className="flex justify-center space-x-4 px-10 mt-5">
-                <NavItem to="/wedding/info" label="Thông tin thiệp cưới" isActive={isActive("/wedding/info")} />
-                <NavItem to="/wedding/event" label="Sự kiện cưới" isActive={isActive("/wedding/event")} />
-                <NavItem to="/wedding/image" label="Album ảnh" isActive={isActive("/wedding/image")} />
-                <NavItem to="/wedding/love-story" label="Câu chuyện tình yêu" isActive={isActive("/wedding/love-story")} />
-            </div>
-
-            <div className="min-h-screen bg-gradient-to-b from-rose-50 to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-6xl mx-auto">
-                    <Outlet />
+            <div className="text-center py-6">
+                <div className="flex items-center justify-center text-4xl font-bold text-gray-900 px-4">
+                    <h1 className="flex-1 text-right">{weddingInvitation?.groom_name}</h1>
+                    <CiHeart className="text-4xl text-rose-300 mx-4"/>
+                    <h1 className="flex-1 text-left">{weddingInvitation?.bride_name}</h1>
                 </div>
+                <p className="text-gray-500 text-lg mt-2">Just Married</p>
             </div>
+            <nav className="border-t border-gray-200">
+                <div className="flex justify-center space-x-8 py-4 text-gray-700 font-medium">
+                    <NavItem to="/wedding/couple" label="Cặp đôi" isActive={location.pathname === "/wedding/couple"}/>
+                    <NavItem to="/wedding/love-story" label="Chuyện tình yêu"
+                             isActive={location.pathname === "/wedding/love-story"}/>
+                    <NavItem to="/wedding/image" label="Album Hình Cưới"
+                             isActive={location.pathname === "/wedding/image"}/>
+                    <NavItem to="/wedding/event" label="Sự kiện cưới"
+                             isActive={location.pathname === "/wedding/event"}/>
+                </div>
+            </nav>
+            <main className="mx-auto max-w-7xl pb-8">
+                <Outlet/>
+            </main>
         </div>
     );
 }
@@ -42,10 +58,10 @@ const NavItem = ({ to, label, isActive }) => {
     return (
         <Link
             to={to}
-            className={`py-2 px-4 rounded font-medium transition 
-                ${isActive ? "bg-blue-700 text-white shadow-md" : "bg-blue-500 hover:bg-blue-700 text-white"}`}
+            className={`relative py-2 px-4 text-lg duration-300 ${isActive ? "text-rose-600 font-bold" : "hover:text-rose-500"}`}
         >
             {label}
+            {isActive && <span className="absolute bottom-0 left-0 w-full h-1 bg-rose-500 rounded-full" />}
         </Link>
     );
 };

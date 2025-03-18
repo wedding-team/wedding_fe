@@ -1,9 +1,10 @@
-import React, {useEffect, useState, useCallback} from "react";
+import React, { useEffect } from "react";
 import WeddingInvitationForm from "./WeddingInvitationForm";
-import {useFormik} from "formik";
-import Helper from "../../Utils/Helper";
+import { useFormik } from "formik";
+import Helper from "../../utils/Helper";
 import * as Yup from "yup";
-import WeddingInvitationApi from "../../Apis/WeddingInvitationApi";
+import { useDispatch, useSelector } from "react-redux";
+import {fetchWeddingInvitations, updateWeddingInvitation} from "../../redux/weddingInvitation/weddingInvitationSlice";
 
 const validationSchema = Yup.object({
     groom_name: Yup.string().required("Vui lòng nhập tên chú rể"),
@@ -23,39 +24,15 @@ const validationSchema = Yup.object({
 });
 
 const WeddingInvitation = () => {
-    const [initialValues, setInitialValues] = useState(null);
-
-    const fetchWeddingData = useCallback(async () => {
-        try {
-            const res = await WeddingInvitationApi.getWeddingInvitation();
-            const data = res.data?.body;
-            setInitialValues({
-                groom_name: data.groom_name || "",
-                groom_address: data.groom_address || "",
-                groom_dad: data.groom_dad || "",
-                groom_mom: data.groom_mom || "",
-                groom_bio: data.groom_bio || "",
-                bride_name: data.bride_name || "",
-                bride_address: data.bride_address || "",
-                bride_dad: data.bride_dad || "",
-                bride_mom: data.bride_mom || "",
-                bride_bio: data.bride_bio || "",
-                groom_avatar_url: data.groom_avatar_url || null,
-                bride_avatar_url: data.bride_avatar_url || null,
-                groom_qr_url: data.groom_qr_url || null,
-                bride_qr_url: data.bride_qr_url || null,
-            });
-        } catch (error) {
-            Helper.toastError("Không thể tải dữ liệu!");
-        }
-    }, []);
+    const dispatch = useDispatch();
+    const { weddingInvitation, status } = useSelector((state) => state.weddingInvitations);
 
     useEffect(() => {
-        fetchWeddingData();
-    }, [fetchWeddingData]);
+        dispatch(fetchWeddingInvitations());
+    }, [dispatch]);
 
     const formik = useFormik({
-        initialValues: initialValues || {
+        initialValues: weddingInvitation || {
             groom_name: "",
             groom_address: "",
             groom_dad: "",
@@ -73,21 +50,22 @@ const WeddingInvitation = () => {
         },
         enableReinitialize: true,
         validationSchema,
-        onSubmit: async (values, {setSubmitting}) => {
+        onSubmit: async (values, { setSubmitting }) => {
             try {
-                await WeddingInvitationApi.updateWeddingInvitation(values);
+                await dispatch(updateWeddingInvitation(values)).unwrap();
                 Helper.toastSuccess("Cập nhật thành công!");
-                fetchWeddingData();
             } catch (err) {
                 console.error("Lỗi cập nhật:", err);
-                Helper.toastError(err.response?.data?.message || "Cập nhật thất bại");
+                Helper.toastError(err.message || "Cập nhật thất bại");
             } finally {
                 setSubmitting(false);
             }
         },
     });
 
-    return (<>{initialValues ? <WeddingInvitationForm formik={formik}/> : <p>Đang tải...</p>}</>);
+    if (status === "loading") return <p>Đang tải...</p>;
+
+    return <WeddingInvitationForm formik={formik} />;
 };
 
 export default WeddingInvitation;

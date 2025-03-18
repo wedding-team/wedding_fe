@@ -1,9 +1,9 @@
 import React from 'react';
-import FileUpload from "../../Component/common/FileUpload";
+import FileUpload from "../../components/common/FileUpload";
 
 function BrideForm({ formik }) {
     return (
-        <div className="w-1/2 px-4 space-y-4">
+        <div className="px-4 space-y-4">
             <h2 className="text-3xl text-center font-semibold text-gray-700">Thông tin cô dâu</h2>
             <div>
                 <FileUpload
@@ -24,35 +24,54 @@ function BrideForm({ formik }) {
                     textColor="text-white"
                 />
             </div>
-
-            {[
-                { label: "Tên cô dâu", name: "bride_name" },
-                { label: "Ba cô dâu", name: "bride_dad" },
-                { label: "Mẹ cô dâu", name: "bride_mom" },
-                { label: "Địa chỉ", name: "bride_address" },
-            ].map(({ label, name }) => (
-                <div key={name}>
-                    <label className="block text-gray-600">{label}</label>
-                    <input
-                        type="text"
-                        name={name}
-                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
-                        value={formik.values[name]}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
-                    {formik.touched[name] && formik.errors[name] && (
-                        <p className="text-red-500 text-sm">{formik.errors[name]}</p>
-                    )}
-                </div>
-            ))}
-
+            <div className="grid grid-cols-2 gap-4">
+                {[
+                    { label: "Tên cô dâu", name: "bride_name" },
+                    { label: "Địa chỉ", name: "bride_address" },
+                ].map(({ label, name }) => (
+                    <div key={name}>
+                        <label className="block text-gray-600">{label}</label>
+                        <input
+                            type="text"
+                            name={name}
+                            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                            value={formik.values[name]}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                        />
+                        {formik.touched[name] && formik.errors[name] && (
+                            <p className="text-red-500 text-sm">{formik.errors[name]}</p>
+                        )}
+                    </div>
+                ))}
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+                {[
+                    { label: "Ba cô dâu", name: "bride_dad" },
+                    { label: "Mẹ cô dâu", name: "bride_mom" },
+                ].map(({ label, name }) => (
+                    <div key={name}>
+                        <label className="block text-gray-600">{label}</label>
+                        <input
+                            type="text"
+                            name={name}
+                            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                            value={formik.values[name]}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                        />
+                        {formik.touched[name] && formik.errors[name] && (
+                            <p className="text-red-500 text-sm">{formik.errors[name]}</p>
+                        )}
+                    </div>
+                ))}
+            </div>
             <div>
                 <label className="block text-gray-600">Giới thiệu cô dâu</label>
                 <textarea
                     name="bride_bio"
-                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
-                    rows="4"
+                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                    rows={4}
                     value={formik.values.bride_bio}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
