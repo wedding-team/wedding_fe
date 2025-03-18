@@ -52,6 +52,14 @@ class Helper {
             this.toastError("Không thể kết nối đến máy chủ, vui lòng thử lại!");
         }
     }
+
+    static formatDate(dateString, locale = "vi-VN") {
+        if (!dateString) return "N/A";
+        return new Intl.DateTimeFormat(locale, { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(dateString));
+    }
+
+    static getCurrentDate = () => new Date().toISOString().split("T")[0];
+    static getCurrentTime = () => new Date().toTimeString().slice(0, 5);
 }
 
 export default Helper;

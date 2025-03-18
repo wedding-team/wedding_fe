@@ -1,11 +1,11 @@
 import React from 'react';
-import Navbar from '../Component/common/Navbar';
-import Footer from '../Component/common/Footer';
-import HeroSection from '../Component/sections/home/HeroSection';
-import FeaturesSection from '../Component/sections/home/FeaturesSection';
-import ProcessSection from '../Component/sections/home/ProcessSection';
-import CallToAction from '../Component/sections/home/CallToAction';
-import StartSection from '../Component/sections/home/StartSection';
+import Navbar from '../components/common/Navbar';
+import Footer from '../components/common/Footer';
+import HeroSection from '../components/sections/home/HeroSection';
+import FeaturesSection from '../components/sections/home/FeaturesSection';
+import ProcessSection from '../components/sections/home/ProcessSection';
+import CallToAction from '../components/sections/home/CallToAction';
+import StartSection from '../components/sections/home/StartSection';
 
 const Home = () => {
     return (

@@ -1,12 +1,12 @@
 import {Toaster} from "sonner";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import FormSignUp from "../../Component/Auth/FormSignUp";
-import Helper from "../../Utils/Helper";
+import FormSignUp from "../../components/Auth/FormSignUp";
+import Helper from "../../utils/Helper";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {signUp} from "../../Redux/auth/authSlice";
+import {signUp} from "../../redux/auth/authSlice";
 
 const validationSchema = Yup.object({
     email: Yup.string()

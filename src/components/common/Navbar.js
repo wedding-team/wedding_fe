@@ -56,8 +56,6 @@ const Navbar = ({title = "Wedding QR Code"}) => {
                 >
                     {title}
                 </h1>
-
-                {/* Desktop Navigation */}
                 <nav className="max-lg:hidden lg:flex space-x-2 mr-4 lg:items-center">
                     {navItems.map((item, index) => (
                         <button
@@ -71,10 +69,7 @@ const Navbar = ({title = "Wedding QR Code"}) => {
                 </nav>
 
                 <div className={`flex`}>
-                    {/* User Status Button */}
                     <UserStatusButton isHomePage={isHomePage} isScrolled={isScrolled}/>
-
-                    {/* Mobile Menu Toggle */}
                     <button
                         className={`lg:hidden ml-4 focus:outline-none menu-toggle max-lg:end ${isScrolled || !isHomePage ? 'text-pink-600' : 'text-white'}`}
                         onClick={(e) => {
@@ -99,8 +94,6 @@ const Navbar = ({title = "Wedding QR Code"}) => {
                     </button>
                 </div>
             </div>
-
-            {/* Mobile Menu Dropdown */}
             {isMenuOpen && (
                 <div className="lg:hidden mobile-menu-container">
                     <div className="bg-white shadow-lg transition-transform transform origin-top animate-slideDown">

@@ -3,11 +3,8 @@ import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import WeddingEventForm from "./WeddingEventForm";
-import {saveWeddingEvent} from "../../Redux/weddingEvent/weddingEventSlice";
-import Helper from "../../Utils/Helper";
-
-const getCurrentDate = () => new Date().toISOString().split("T")[0];
-const getCurrentTime = () => new Date().toTimeString().slice(0, 5);
+import {saveWeddingEvent} from "../../redux/weddingEvent/weddingEventSlice";
+import Helper from "../../utils/Helper";
 
 const validationSchema = Yup.object({
     title: Yup.string().required("Vui lòng nhập tên sự kiện"),
@@ -16,7 +13,7 @@ const validationSchema = Yup.object({
         .required("Vui lòng chọn ngày tổ chức")
         .min(new Date().toISOString().split("T")[0], "Ngày tổ chức không được ở quá khứ"),
     event_time: Yup.string().required("Vui lòng chọn giờ tổ chức"),
-    image: Yup.mixed().required(),
+    image: Yup.mixed()
 });
 
 function WeddingEventNew({event, onClose}) {
@@ -25,9 +22,9 @@ function WeddingEventNew({event, onClose}) {
     const initialValues = useMemo(() => ({
         title: event?.title || "",
         address: event?.address || "",
-        event_date: event?.event_date || getCurrentDate(),
-        event_time: event?.event_time || getCurrentTime(),
-        image_url: event?.image_url || null,
+        event_date: event?.event_date || Helper.getCurrentDate(),
+        event_time: event?.event_time || Helper.getCurrentTime(),
+        image_url: event?.image_url || "",
     }), [event]);
 
     const formik = useFormik({
@@ -37,6 +34,7 @@ function WeddingEventNew({event, onClose}) {
         onSubmit: async (values, {setSubmitting}) => {
             try {
                 await dispatch(saveWeddingEvent({id: event?.id, data: values}));
+                console.log(values)
                 Helper.toastSuccess(event ? "Cập nhật sự kiện thành công!" : "Thêm sự kiện thành công!");
                 onClose();
             } catch (error) {

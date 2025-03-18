@@ -7,7 +7,7 @@ class LoveStoryApi {
 
     static saveLoveStory(id, data) {
         const formData = this.toFormData(data);
-        const url = id ? `/api/v1/love_stories/${id}` : '/apis/v1/love_stories';
+        const url = id ? `/api/v1/love_stories/${id}` : '/api/v1/love_stories';
         const method = id ? 'put' : 'post';
         return apiClient[method](url, formData, {
             headers: { "Content-Type": "multipart/form-data" },

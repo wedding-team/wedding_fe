@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { LuGlobe, LuLogOut, LuChevronDown } from 'react-icons/lu';
 import { FiEdit2 } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../Redux/auth/authSlice";
+import { logout } from "../../redux/auth/authSlice";
 
 const UserStatusButton = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);

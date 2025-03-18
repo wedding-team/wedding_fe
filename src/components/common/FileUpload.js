@@ -5,7 +5,7 @@ const FileUpload = ({ label, name, previewUrl, onChange, accept, placeholderIcon
     return (
         <div className="flex flex-col items-center bỏd">
             <div
-                className={`${size} bg-gray-200 overflow-hidden mb-3 flex items-center justify-center border-2
+                className={`${size} bg-gray-200 overflow-hidden mb-3 flex items-center justify-center 
                 ${rounded === "circle" ? "rounded-full" : "rounded-md"}`}
             >
                 {previewUrl ? (

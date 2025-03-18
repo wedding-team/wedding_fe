@@ -1,10 +1,16 @@
-import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import WeddingEventItem from "./WeddingEventItem";
 import WeddingEventDelete from "./WeddingEventDelete";
+import {fetchWeddingEvents} from "../../redux/weddingEvent/weddingEventSlice";
 
 function WeddingEventList({onEdit}) {
+    const dispatch = useDispatch();
     const {events} = useSelector((state) => state.weddingEvents);
+
+    useEffect(() => {
+        dispatch(fetchWeddingEvents());
+    }, [dispatch]);
 
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
