@@ -5,10 +5,6 @@ class WeddingEventApi {
         return apiClient.get('/api/v1/wedding_events');
     }
 
-    static getWeddingEvent(id) {
-        return apiClient.get(`/api/v1/wedding_events/${id}`);
-    }
-
     static saveWeddingEvent(id, data) {
         const formData = this.toFormData(data);
         const url = id ? `/api/v1/wedding_events/${id}` : '/api/v1/wedding_events';
@@ -16,6 +12,10 @@ class WeddingEventApi {
         return apiClient[method](url, formData, {
             headers: { "Content-Type": "multipart/form-data" },
         });
+    }
+
+    static updatePosition(id, data) {
+        return apiClient.put(`/api/v1/wedding_events/${id}`, data)
     }
 
     static deleteWeddingEvent(id) {

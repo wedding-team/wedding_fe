@@ -53,11 +53,10 @@ function SignUp() {
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-            <Toaster position="bottom-right"/>
             <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
                 <div className="flex flex-col items-center">
                     <img
-                        src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+                        src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=rose&shade=600"
                         alt="Logo"
                         className="h-10"
                     />

@@ -39,8 +39,8 @@ function Login() {
     });
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100 px-1 md:px-4">
-            <div className="w-full max-w-md md:bg-white md:rounded-lg md:shadow-md max-md:p-2 md:p-8">
+        <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
+            <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
                 <div className="flex flex-col items-center">
                     <img
                         onClick={() => navigate("/")}

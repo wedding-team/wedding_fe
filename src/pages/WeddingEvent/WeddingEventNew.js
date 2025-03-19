@@ -34,7 +34,6 @@ function WeddingEventNew({event, onClose}) {
         onSubmit: async (values, {setSubmitting}) => {
             try {
                 await dispatch(saveWeddingEvent({id: event?.id, data: values}));
-                console.log(values)
                 Helper.toastSuccess(event ? "Cập nhật sự kiện thành công!" : "Thêm sự kiện thành công!");
                 onClose();
             } catch (error) {

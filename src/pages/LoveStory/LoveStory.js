@@ -3,7 +3,6 @@ import {useState} from "react";
 import ModalForm from "../../components/common/ModalForm";
 import LoverStoryNew from "./LoveStoryNew";
 
-
 function LoveStory() {
     const [isFormModalOpen, setIsFormModalOpen] = useState(false);
     const [selectLoveStory, setSelectLoveStory] = useState(null);
@@ -17,8 +16,6 @@ function LoveStory() {
         setIsFormModalOpen(false);
         setSelectLoveStory(null);
     };
-
-    console.log("Current selectLoveStory:", selectLoveStory);
 
     return (
         <div className="shadow-sm bg-white rounded-lg p-5">

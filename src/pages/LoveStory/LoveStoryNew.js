@@ -29,11 +29,11 @@ function LoverStoryNew({loveStory, onClose}) {
         validationSchema,
         onSubmit: async (values, {setSubmitting}) => {
             try {
-                await dispatch(saveLoveStory({id: loveStory.id, data: values}));
+                await dispatch(saveLoveStory({id: loveStory?.id, data: values}));
                 Helper.toastSuccess(loveStory ? "Cập nhật thành công!" : "Thêm mới thành công!");
                 onClose();
             } catch (error) {
-                Helper.toastError("Lỗi khi lưu sự kiện!");
+                Helper.toastError("Lỗi khi lưu!");
             }
             setSubmitting(false);
         }

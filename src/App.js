@@ -6,7 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Authen/Login";
 import AdminLogin from "./pages/Admin/Login";
 import SignUp from "./pages/Authen/SignUp";
-import WeddingLayout from "./layouts/WeddingLayout";
+import WeddingLayout from "./layout/WeddingLayout";
 import WeddingInvitation from "./pages/WeddingInvitation/WeddingInvitation";
 import WeddingEvent from "./pages/WeddingEvent/WeddingEvent";
 import WeddingGallery from "./pages/WeddingGallery/WeddingGallery";
