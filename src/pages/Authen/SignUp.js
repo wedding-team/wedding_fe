@@ -1,4 +1,3 @@
-import {Toaster} from "sonner";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import FormSignUp from "../../components/Auth/FormSignUp";
