@@ -4,13 +4,16 @@ import '../src/index.css';
 import HomePage from './pages/Home';
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Authen/Login";
-import AdminLogin from "./pages/Admin/Login";
+import AdminLogin from "./pages/Admin/session/Login";
 import SignUp from "./pages/Authen/SignUp";
 import WeddingLayout from "./layout/WeddingLayout";
 import WeddingInvitation from "./pages/WeddingInvitation/WeddingInvitation";
 import WeddingEvent from "./pages/WeddingEvent/WeddingEvent";
 import WeddingGallery from "./pages/WeddingGallery/WeddingGallery";
 import LoveStory from "./pages/LoveStory/LoveStory";
+import AdminLayout from "./layout/AdminLayout";
+import Dashboard from "./pages/Admin/dashboard/Dashboard";
+import UserList from "./pages/Admin/user/UserList";
 
 function App() {
     return (
@@ -27,6 +30,13 @@ function App() {
                         <Route path="image" element={<WeddingGallery/>}/>
                         <Route path="love-story" element={<LoveStory/>}/>
                     </Route>
+                </Route>
+                <Route path="/admin" element={<AdminLayout/>}>
+                    <Route path="dashboard" element={<Dashboard/>}/>
+                    <Route path="cards" element={""}/>
+                    <Route path="users" element={<UserList/>}/>
+                    <Route path="notifications" element={""}/>
+                    <Route path="settings" element={""}/>
                 </Route>
             </Routes>
             <Toaster position="bottom-right" richColors/>

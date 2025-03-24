@@ -13,7 +13,7 @@ apiClient.interceptors.request.use((config) => {
     const uid = localStorage.getItem("uid");
 
     if (token) {
-        config.headers['Authorization'] = `Bearer ${token}`;
+        config.headers["Authorization"] = `Bearer ${token}`;
         config.headers['access-token'] = token;
         config.headers['client'] = client;
         config.headers['uid'] = uid;

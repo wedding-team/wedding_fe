@@ -13,12 +13,10 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^13.5.0",
-    "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
     "formik": "^2.4.6",
     "framer-motion": "^12.5.0",
     "navigate": "^0.3.6",
-    "postcss": "^8.5.3",
     "postcss-cli": "^11.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -56,6 +54,10 @@
     ]
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.0.12"
+    "@tailwindcss/postcss": "^4.0.14",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "postcss-loader": "^8.1.1",
+    "tailwindcss": "^4.0.14"
   }
 }
