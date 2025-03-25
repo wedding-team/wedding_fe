@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -14,9 +14,11 @@ const validationSchema = Yup.object({
 
 function Login() {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
     const handleSubmit = async (values, { setSubmitting }) => {
+        setLoading(true);
         try {
             const result = await dispatch(loginUser(values));
             if (result.meta.requestStatus === "fulfilled") {
@@ -28,6 +30,7 @@ function Login() {
         } catch (err) {
             Helper.toastError(err.message || "Đã xảy ra lỗi khi đăng nhập");
         } finally {
+            setLoading(false);
             setSubmitting(false);
         }
     };
@@ -40,7 +43,7 @@ function Login() {
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-            <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
+            <div className="w-full max-w-md md:bg-white md:rounded-lg md:shadow-md max-md:p-2 md:p-8">
                 <div className="flex flex-col items-center">
                     <img
                         onClick={() => navigate("/")}
@@ -50,7 +53,7 @@ function Login() {
                     />
                     <h2 className="mt-4 text-2xl font-bold text-gray-900">ĐĂNG NHẬP</h2>
                 </div>
-                <FormLogin formik={formik} />
+                <FormLogin formik={formik} loading={loading} />
                 <div className="relative mt-6">
                     <div className="absolute inset-0 flex items-center">
                         <div className="w-full border-t border-gray-300"></div>
@@ -61,7 +64,7 @@ function Login() {
                 </div>
                 <p className="mt-6 text-center text-sm text-gray-600">
                     Bạn chưa có tài khoản?
-                    <a href="/sign-up" className="text-rose-600 hover:underline ms-1">Đăng ký</a>
+                    <a href="/sign-up" className="text-primary-600 hover:underline ms-1">Đăng ký</a>
                 </p>
             </div>
         </div>

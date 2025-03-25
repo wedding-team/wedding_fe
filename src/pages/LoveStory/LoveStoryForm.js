@@ -7,7 +7,7 @@ function LoveStoryForm({formik}) {
             <div className="flex gap-6 items-center">
                 <div className="w-1/3 flex flex-col">
                     <FileUpload
-                        label="Tải ảnh"
+                        previewImage="w-full object-cover"
                         name="image"
                         rounded="square"
                         size="w-48 h-48"
@@ -21,7 +21,6 @@ function LoveStoryForm({formik}) {
                         }}
                         accept="image/*"
                         placeholderIcon={<span className="text-gray-500">Chưa có ảnh</span>}
-                        bgColor="bg-blue-500"
                         textColor="text-white"
                     />
                 </div>

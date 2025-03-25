@@ -2,12 +2,12 @@ import React, {useState, useEffect} from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
 import UserStatusButton from './UserStatusButton';
 
-const Navbar = ({title = "Wedding QR Code"}) => {
+const Navbar = ({ title = "Wedding QR Code" }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const isHomePage = location.pathname === '/';
+    const isHomePage = location.pathname === "/";
 
     useEffect(() => {
         if (!isHomePage) return;
@@ -16,36 +16,27 @@ const Navbar = ({title = "Wedding QR Code"}) => {
             setIsScrolled(window.scrollY > 100);
         };
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
     }, [isHomePage]);
 
-    useEffect(() => {
-        if (!isMenuOpen) return;
-
-        const handleClickOutside = (e) => {
-            if (!e.target.closest('.mobile-menu-container') && !e.target.closest('.menu-toggle')) {
-                setIsMenuOpen(false);
-            }
-        };
-
-        document.addEventListener('click', handleClickOutside);
-        return () => document.removeEventListener('click', handleClickOutside);
-    }, [isMenuOpen]);
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+    };
 
     const navItems = [
-        {label: 'Hướng dẫn', path: '/guide'},
-        {label: 'Danh sách mẫu', path: '/templates'}
+        { label: "Hướng dẫn", path: "/guide" },
+        { label: "Danh sách mẫu", path: "/templates" }
     ];
 
     const navbarStyle = !isHomePage
-        ? 'bg-white shadow-md'
+        ? "bg-white shadow-md"
         : isScrolled
-            ? 'bg-white shadow-md fixed'
-            : 'absolute bg-transparent';
+            ? "bg-white shadow-md fixed"
+            : "absolute bg-transparent";
 
-    const textStyle = !isHomePage || isScrolled ? 'text-pink-600' : 'text-white';
-    const navItemStyle = !isHomePage || isScrolled ? 'text-gray-800 hover:text-white' : 'text-white';
+    const textStyle = !isHomePage || isScrolled ? "text-primary-800" : "text-white";
+    const navItemStyle = !isHomePage || isScrolled ? "text-gray-800 hover:text-white" : "text-white";
 
     return (
         <header className={`w-full top-0 z-10 transition-all duration-300 ease-in-out ${navbarStyle}`}>
@@ -61,7 +52,7 @@ const Navbar = ({title = "Wedding QR Code"}) => {
                         <button
                             key={index}
                             onClick={() => navigate(item.path)}
-                            className={`${navItemStyle} px-4 py-2 rounded-full font-medium hover:bg-pink-600 transition-all duration-200`}
+                            className={`${navItemStyle} px-4 py-2 rounded-full font-medium hover:bg-primary-600 transition-all duration-200`}
                         >
                             {item.label}
                         </button>
@@ -69,9 +60,9 @@ const Navbar = ({title = "Wedding QR Code"}) => {
                 </nav>
 
                 <div className={`flex`}>
-                    <UserStatusButton isHomePage={isHomePage} isScrolled={isScrolled}/>
+                    <UserStatusButton isMenuOpen={isMenuOpen} closeMenu={closeMenu} isHomePage={isHomePage}/>
                     <button
-                        className={`lg:hidden ml-4 focus:outline-none menu-toggle max-lg:end ${isScrolled || !isHomePage ? 'text-pink-600' : 'text-white'}`}
+                        className={`lg:hidden ml-4 focus:outline-none menu-toggle max-lg:end ${isScrolled || !isHomePage ? 'text-primary-600' : 'text-white'}`}
                         onClick={(e) => {
                             e.stopPropagation();
                             setIsMenuOpen(!isMenuOpen);
@@ -105,7 +96,7 @@ const Navbar = ({title = "Wedding QR Code"}) => {
                                         navigate(item.path);
                                         setIsMenuOpen(false);
                                     }}
-                                    className="w-full text-left block py-3 px-4 text-gray-800 hover:bg-pink-600 hover:text-white rounded-lg transition-colors duration-200"
+                                    className="w-full text-left block py-3 px-4 text-gray-800 hover:bg-primary-500 hover:text-white rounded-lg transition-colors duration-200"
                                 >
                                     {item.label}
                                 </button>

@@ -1,9 +1,10 @@
+import React from 'react';
 import {Link, Outlet, useNavigate, useLocation} from "react-router-dom";
+import { LuUsersRound, LuHeart, LuAlbum , LuCalendar } from "react-icons/lu";
 import UserStatusButton from "../components/common/UserStatusButton";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchWeddingInvitations} from "../redux/weddingInvitation/weddingInvitationSlice";
 import {useEffect} from "react";
-import {CiHeart} from "react-icons/ci";
 
 function WeddingLayout() {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ function WeddingLayout() {
     return (
         <div className="bg-stone-100 min-h-screen">
             <div className="bg-white drop-shadow-sm">
-                <div className="container mx-auto flex justify-between items-center px-6 py-2">
+                <div className="container flex justify-between items-center max-md:mx-4 md:mx-24 py-2">
                     <img
                         onClick={() => navigate('/')}
                         src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=rose&shade=500"
@@ -28,23 +29,41 @@ function WeddingLayout() {
                     <UserStatusButton/>
                 </div>
             </div>
-            <div className="text-center py-6">
-                <div className="flex items-center justify-center text-4xl font-bold text-gray-900 px-4">
-                    <h1 className="flex-1 text-right">{weddingInvitation?.groom_name}</h1>
-                    <CiHeart className="text-4xl text-rose-300 mx-4"/>
-                    <h1 className="flex-1 text-left">{weddingInvitation?.bride_name}</h1>
+            <div className="text-center py-6 bg-cover bg-center bg-no-repeat" style={{
+                backgroundImage: `url(/images/bg.webp)`
+            }}>
+                <div className="flex items-center justify-center max-sm:text-2xl sm:text-3xl md:text-4xl text-gray-900 py-4">
+                    <h1 className="font-GreatVibes flex-1 text-right">{weddingInvitation?.groom_name}</h1>
+                    <img src="/images/couple.png" className="max-md:mx-4 md:mx-12 max-md:w-12 md:w-20" alt={'heart'}/>
+                    <h1 className="font-GreatVibes flex-1 text-left">{weddingInvitation?.bride_name}</h1>
                 </div>
-                <p className="text-gray-500 text-lg mt-2">Just Married</p>
             </div>
-            <nav className="border-t border-gray-200">
-                <div className="flex justify-center space-x-8 py-4 text-gray-700 font-medium">
-                    <NavItem to="/wedding/couple" label="Cặp đôi" isActive={location.pathname === "/wedding/couple"}/>
-                    <NavItem to="/wedding/love-story" label="Chuyện tình yêu"
-                             isActive={location.pathname === "/wedding/love-story"}/>
-                    <NavItem to="/wedding/image" label="Album Hình Cưới"
-                             isActive={location.pathname === "/wedding/image"}/>
-                    <NavItem to="/wedding/event" label="Sự kiện cưới"
-                             isActive={location.pathname === "/wedding/event"}/>
+            <nav className="border-t border-gray-200 z-10">
+                <div className="flex max-md:justify-between max-md:mx-4 md:justify-center md:space-x-8 py-4 text-gray-700 font-medium">
+                    <NavItem
+                        to="/wedding/couple"
+                        label="Cặp đôi"
+                        icon={<LuUsersRound size={24} />}
+                        isActive={location.pathname === "/wedding/couple"}
+                    />
+                    <NavItem
+                        to="/wedding/love-story"
+                        label="Chuyện tình yêu"
+                        icon={<LuHeart size={24} />}
+                        isActive={location.pathname === "/wedding/love-story"}
+                    />
+                    <NavItem
+                        to="/wedding/image"
+                        label="Album Hình Cưới"
+                        icon={<LuAlbum  size={24} />}
+                        isActive={location.pathname === "/wedding/image"}
+                    />
+                    <NavItem
+                        to="/wedding/event"
+                        label="Sự kiện cưới"
+                        icon={<LuCalendar size={24} />}
+                        isActive={location.pathname === "/wedding/event"}
+                    />
                 </div>
             </nav>
             <main className="mx-auto max-w-7xl pb-8">
@@ -54,14 +73,28 @@ function WeddingLayout() {
     );
 }
 
-const NavItem = ({ to, label, isActive }) => {
+const NavItem = ({ to, label, icon, isActive }) => {
     return (
         <Link
             to={to}
-            className={`relative py-2 px-4 text-lg duration-300 ${isActive ? "text-rose-600 font-bold" : "hover:text-rose-500"}`}
+            className={`flex flex-col items-center py-2 px-4 text-lg group relative`}
         >
-            {label}
-            {isActive && <span className="absolute bottom-0 left-0 w-full h-1 bg-rose-500 rounded-full" />}
+            <div className={`
+                ${isActive ? "text-rose-600" : "text-gray-600 group-hover:text-rose-500"}
+                mb-1
+            `}>
+                {icon}
+            </div>
+            <span className={`
+                max-md:hidden 
+                ${isActive ? "text-rose-600" : "text-gray-700 group-hover:text-rose-500"}
+                text-sm
+            `}>
+                {label}
+            </span>
+            {isActive && (
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-rose-600 rounded-full" />
+            )}
         </Link>
     );
 };

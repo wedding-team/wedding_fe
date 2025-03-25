@@ -1,6 +1,24 @@
 @tailwind base;
-@tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'GreatVibes';
+  src: url('./assets/fonts/GreatVibes-Regular.ttf') format('truetype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sigmar';
+  src: url('./assets/fonts/Sigmar-Regular.ttf') format('truetype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SigmarOne';
+  src: url('./assets/fonts/SigmarOne-Regular.ttf') format('truetype');
+  font-style: normal;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
