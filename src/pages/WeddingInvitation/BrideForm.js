@@ -4,7 +4,7 @@ import FileUpload from "../../components/common/FileUpload";
 function BrideForm({ formik }) {
     return (
         <div className="md:px-4 space-y-4">
-            <h2 className="text-2xl text-center font-semibold text-gray-700">Thông tin cô dâu</h2>
+            <h2 className="max-md:text-lg md:text-2xl text-center font-semibold text-gray-700">Thông tin cô dâu</h2>
             <div>
                 <FileUpload
                     previewImage="w-full object-cover"

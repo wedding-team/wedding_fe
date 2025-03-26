@@ -28,7 +28,7 @@ function WeddingLayout() {
                         className="cursor-pointer h-10"
                     />
                     <div className="flex items-center gap-4">
-                        <div className="shadow-lg border rounded-full p-1">
+                        <div className="border rounded-full p-1">
                             <Notification />
                         </div>
                         <UserStatusButton />
