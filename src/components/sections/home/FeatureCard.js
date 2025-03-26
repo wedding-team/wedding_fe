@@ -3,9 +3,9 @@ import React from 'react';
 const FeatureCard = ({ icon, title, description }) => {
     return (
         <div
-            className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] flex flex-col md:flex-row"
+            className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] flex flex-col"
         >
-            <div className="bg-gradient-to-br from-pink-100 to-pink-50 p-6 flex items-center justify-center">
+            <div className="bg-gradient-to-br from-primary-100 to-primary-200 p-4 flex items-center justify-center">
                 {icon}
             </div>
             <div className="p-6">

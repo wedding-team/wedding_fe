@@ -3,13 +3,13 @@ import FileUpload from "../../components/common/FileUpload";
 
 function GroomForm({ formik }) {
     return (
-        <div className="px-4 space-y-4">
-            <h2 className="text-3xl text-center font-semibold text-gray-700">Thông tin chú rể</h2>
+        <div className="md:px-4 space-y-4">
+            <h2 className="max-md:text-lg md:text-2xl text-center font-semibold text-gray-700">Thông tin chú rể</h2>
             <div>
                 <FileUpload
-                    label="Tải ảnh chú rể"
+                    previewImage="w-full object-cover"
                     name="groom_avatar"
-                    size="w-40 h-40"
+                    size="w-36 h-36"
                     previewUrl={formik.values.groom_avatar_url}
                     onChange={(event) => {
                         const file = event.currentTarget.files[0];
@@ -20,7 +20,6 @@ function GroomForm({ formik }) {
                     }}
                     accept="image/*"
                     placeholderIcon={<span className="text-gray-500">Chưa có ảnh</span>}
-                    bgColor="bg-blue-500"
                     textColor="text-white"
                 />
             </div>
@@ -82,10 +81,10 @@ function GroomForm({ formik }) {
             </div>
             <div>
                 <FileUpload
-                    label="Tải QR Chú rể"
+                    previewImage="w-full h-full object-contain"
                     name="groom_qr"
                     rounded="square"
-                    size="w-80 h-80"
+                    size="w-52 h-52"
                     previewUrl={formik.values.groom_qr_url}
                     onChange={(event) => {
                         const file = event.currentTarget.files[0];
@@ -96,7 +95,6 @@ function GroomForm({ formik }) {
                     }}
                     accept="image/*"
                     placeholderIcon={<span className="text-gray-500">Chưa có ảnh</span>}
-                    bgColor="bg-green-500"
                     textColor="text-white"
                 />
             </div>

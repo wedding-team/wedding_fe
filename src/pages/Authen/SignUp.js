@@ -52,7 +52,7 @@ function SignUp() {
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-            <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
+            <div className="w-full max-w-md md:bg-white md:rounded-lg md:shadow-md max-md:p-2 md:p-8">
                 <div className="flex flex-col items-center">
                     <img
                         src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=rose&shade=600"
@@ -67,13 +67,13 @@ function SignUp() {
                         <div className="w-full border-t border-gray-300"></div>
                     </div>
                     <div className="relative flex justify-center text-sm">
-                        <span className="bg-white px-2 text-gray-600">Hoặc</span>
+                        <span className="md:bg-white px-2 text-gray-600">Hoặc</span>
                     </div>
                 </div>
 
                 <p className="mt-6 text-center text-sm text-gray-600">
                     Bạn đã có tài khoản?
-                    <a href="/login" className="text-rose-600 hover:underline ms-1">
+                    <a href="/login" className="text-primary-600 hover:underline ms-1">
                         Đăng nhập
                     </a>
                 </p>

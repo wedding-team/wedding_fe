@@ -1,18 +1,36 @@
 import { useEffect, useState } from "react";
-import { DndContext, closestCenter } from "@dnd-kit/core";
-import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import {
+    DndContext,
+    closestCenter,
+    useSensors,
+    useSensor,
+    PointerSensor,
+} from "@dnd-kit/core";
+import {
+    SortableContext,
+    arrayMove,
+    verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import WeddingGalleryItem from "./WeddingGalleryItem";
 import WeddingGalleryNew from "./WeddingGalleryNew";
 import WeddingGalleryApi from "../../apis/WeddingGalleryApi";
 import WeddingGalleryDelete from "./WeddingGalleryDelete";
 import Helper from "../../utils/Helper";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 function WeddingGalleryList() {
     const [images, setImages] = useState([]);
     const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedImageId, setSelectedImageId] = useState(null);
     const user = useSelector((state) => state.auth.user);
+
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 8,
+            },
+        })
+    );
 
     useEffect(() => {
         fetchData().catch((error) => console.error("Lỗi không mong muốn:", error));
@@ -37,7 +55,6 @@ function WeddingGalleryList() {
                 }
                 const maxUploads = Math.min(fileArray.length, 5 - images.length);
                 fileArray = fileArray.slice(0, maxUploads);
-
                 if (maxUploads < files.length) {
                     Helper.toastWarning("Chỉ có thể thêm tối đa 5 ảnh, các ảnh vượt quá không được tải lên.");
                 }
@@ -80,27 +97,60 @@ function WeddingGalleryList() {
         }
     };
 
+    const handleDragOver = async (event) => {
+        const { active, over } = event;
+        if (!over || active.id === over.id) return;
+
+        const oldIndex = images.findIndex((img) => img.id === active.id);
+        const newIndex = images.findIndex((img) => img.id === over.id);
+
+        if (oldIndex !== newIndex) {
+            const newImages = arrayMove(images, oldIndex, newIndex);
+            setImages(newImages);
+
+            try {
+                await WeddingGalleryApi.updateWeddingGallery(active.id, {
+                    position: newIndex + 1,
+                });
+            } catch (error) {
+                console.error("Lỗi cập nhật position khi kéo:", error);
+                fetchData();
+            }
+        }
+    };
+
     const handleDragEnd = async (event) => {
         const { active, over } = event;
         if (!over || active.id === over.id) return;
+
         const oldIndex = images.findIndex((img) => img.id === active.id);
         const newIndex = images.findIndex((img) => img.id === over.id);
-        const newImages = arrayMove(images, oldIndex, newIndex);
-        setImages(newImages);
-        try {
-            await WeddingGalleryApi.updateWeddingGallery(active.id, { position: newIndex + 1 });
-        } catch (error) {
-            console.error("Lỗi cập nhật position:", error);
+
+        if (oldIndex !== newIndex) {
+            Helper.toastSuccess("Cập nhật vị trí thành công");
         }
     };
 
     return (
         <div>
-            <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-                <SortableContext items={images.map((img) => img.id)} strategy={verticalListSortingStrategy}>
-                    <div className="grid grid-cols-4 gap-4">
-                        {images.map((image) => (
-                            <WeddingGalleryItem key={image.id} image={image} onDelete={handleDeleteClick} />
+            <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragOver={handleDragOver}
+                onDragEnd={handleDragEnd}
+            >
+                <SortableContext
+                    items={images.map((img) => img.id)}
+                    strategy={verticalListSortingStrategy}
+                >
+                    <div className="grid max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 transition-all duration-200 ease-in-out">
+                        {images.map((image, index) => (
+                            <WeddingGalleryItem
+                                key={image.id}
+                                image={image}
+                                index={index}
+                                onDelete={handleDeleteClick}
+                            />
                         ))}
                         <WeddingGalleryNew onUpload={handleUploadFile} />
                     </div>
