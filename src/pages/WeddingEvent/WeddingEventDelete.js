@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { deleteWeddingEvent } from "../../redux/weddingEvent/weddingEventSlice";
-import ModalDelete from "../../components/common/ModalDelete";
+import ModalConfirm from "../../components/common/ModalConfirm";
 import Helper from "../../utils/Helper";
 
 function WeddingEventDelete({ isOpen, onClose, event }) {
@@ -18,7 +18,7 @@ function WeddingEventDelete({ isOpen, onClose, event }) {
     };
 
     return (
-        <ModalDelete
+        <ModalConfirm
             isOpen={isOpen}
             onClose={onClose}
             onConfirm={handleDelete}

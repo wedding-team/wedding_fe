@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
 import UserStatusButton from './UserStatusButton';
+import Notification from "./Notification";
 
 const Navbar = ({title = "Wedding QR Code"}) => {
     const navigate = useNavigate();
@@ -68,7 +69,10 @@ const Navbar = ({title = "Wedding QR Code"}) => {
                     ))}
                 </nav>
 
-                <div className={`flex`}>
+                <div className={`flex items-center`}>
+                    <div className="mr-4">
+                        <Notification/>
+                    </div>
                     <UserStatusButton isHomePage={isHomePage} isScrolled={isScrolled}/>
                     <button
                         className={`lg:hidden ml-4 focus:outline-none menu-toggle max-lg:end ${isScrolled || !isHomePage ? 'text-pink-600' : 'text-white'}`}

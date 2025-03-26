@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import ModalDelete from "../../components/common/ModalDelete";
+import ModalConfirm from "../../components/common/ModalConfirm";
 import Helper from "../../utils/Helper";
 import {deleteLoveStory} from "../../redux/loveStory/loveStorySlice";
 
@@ -18,7 +18,7 @@ function LoveStoryDelete({ isOpen, onClose, loveStory }) {
     };
 
     return (
-        <ModalDelete
+        <ModalConfirm
             isOpen={isOpen}
             onClose={onClose}
             onConfirm={handleDelete}
