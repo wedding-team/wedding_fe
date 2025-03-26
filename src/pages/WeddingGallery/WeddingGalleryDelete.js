@@ -1,8 +1,8 @@
-import ModalDelete from "../../components/common/ModalDelete";
+import ModalConfirm from "../../components/common/ModalConfirm";
 
 function WeddingGalleryDelete({ isOpen, onClose, onConfirm }) {
     return (
-        <ModalDelete
+        <ModalConfirm
             isOpen={isOpen}
             onClose={onClose}
             onConfirm={onConfirm}

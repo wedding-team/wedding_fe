@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
-import { LuUpload } from "react-icons/lu";
-
+import { TbCameraPlus } from "react-icons/tb";
 const FileUpload = ({
                         name,
                         previewUrl,
@@ -36,7 +35,7 @@ const FileUpload = ({
                 onClick={handleIconClick}
                 className={`absolute bottom-6 cursor-pointer bg-transparent ${textColor} rounded-lg flex items-center gap-2`}
             >
-                <LuUpload className="w-8 h-8" />
+                <TbCameraPlus className="w-6 h-6"/>
                 <input
                     ref={fileInputRef}
                     type="file"

@@ -1,10 +1,11 @@
-import React from 'react';
 import {Link, Outlet, useNavigate, useLocation} from "react-router-dom";
 import { LuUsersRound, LuHeart, LuAlbum , LuCalendar } from "react-icons/lu";
 import UserStatusButton from "../components/common/UserStatusButton";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchWeddingInvitations} from "../redux/weddingInvitation/weddingInvitationSlice";
 import {useEffect} from "react";
+import {CiHeart} from "react-icons/ci";
+import Notification from "../components/common/Notification";
 
 function WeddingLayout() {
     const navigate = useNavigate();
@@ -26,7 +27,12 @@ function WeddingLayout() {
                         alt="Logo"
                         className="cursor-pointer h-10"
                     />
-                    <UserStatusButton/>
+                    <div className="flex items-center gap-4">
+                        <div className="shadow-lg border rounded-full p-1">
+                            <Notification />
+                        </div>
+                        <UserStatusButton />
+                    </div>
                 </div>
             </div>
             <div className="text-center py-6 bg-cover bg-center bg-no-repeat" style={{
@@ -77,7 +83,7 @@ const NavItem = ({ to, label, icon, isActive }) => {
     return (
         <Link
             to={to}
-            className={`flex flex-col items-center py-2 px-4 text-lg group relative`}
+            className={`flex flex-col items-center py-2 px-4 text-lg group`}
         >
             <div className={`
                 ${isActive ? "text-rose-600" : "text-gray-600 group-hover:text-rose-500"}
@@ -92,9 +98,6 @@ const NavItem = ({ to, label, icon, isActive }) => {
             `}>
                 {label}
             </span>
-            {isActive && (
-                <span className="absolute bottom-0 left-0 w-full h-1 bg-rose-600 rounded-full" />
-            )}
         </Link>
     );
 };

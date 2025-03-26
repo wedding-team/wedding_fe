@@ -23,7 +23,7 @@ function Sidebar({ isOpen }) {
         <div
             className={`fixed top-0 left-0 bottom-0 bg-white border-r
                 transition-all duration-300 z-50 overflow-hidden
-                ${isOpen ? "w-64" : "w-20"} md:block hidden flex flex-col`}
+                ${isOpen ? "w-64" : "w-30"} md:block hidden flex flex-col`}
         >
             <div className="flex items-center justify-between px-5 py-4 mt-3">
                 <a href="/" className="flex items-center space-x-2">

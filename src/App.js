@@ -14,6 +14,7 @@ import LoveStory from "./pages/LoveStory/LoveStory";
 import AdminLayout from "./layout/AdminLayout";
 import Dashboard from "./pages/Admin/dashboard/Dashboard";
 import UserList from "./pages/Admin/user/UserList";
+import NotFound from "./pages/Error/404";
 
 function App() {
     return (
@@ -23,7 +24,7 @@ function App() {
                 <Route path="/admin" element={<AdminLogin/>}/>
                 <Route path="/sign-up" element={<SignUp/>}/>
                 <Route path="/" element={<HomePage/>}/>
-                <Route element={<ProtectedRoute />}>
+                <Route element={<ProtectedRoute isAdmin={false} />}>
                     <Route path="/wedding" element={<WeddingLayout/>}>
                         <Route path="couple" element={<WeddingInvitation/>}/>
                         <Route path="event" element={<WeddingEvent/>}/>
@@ -31,13 +32,16 @@ function App() {
                         <Route path="love-story" element={<LoveStory/>}/>
                     </Route>
                 </Route>
-                <Route path="/admin" element={<AdminLayout/>}>
-                    <Route path="dashboard" element={<Dashboard/>}/>
-                    <Route path="cards" element={""}/>
-                    <Route path="users" element={<UserList/>}/>
-                    <Route path="notifications" element={""}/>
-                    <Route path="settings" element={""}/>
+                <Route element={<ProtectedRoute isAdmin={true} />}>
+                    <Route path="/admin" element={<AdminLayout/>}>
+                        <Route path="dashboard" element={<Dashboard/>}/>
+                        <Route path="cards" element={""}/>
+                        <Route path="users" element={<UserList/>}/>
+                        <Route path="notifications" element={""}/>
+                        <Route path="settings" element={""}/>
+                    </Route>
                 </Route>
+                <Route path="*" element={<NotFound />} />
             </Routes>
             <Toaster position="bottom-right" richColors/>
         </BrowserRouter>

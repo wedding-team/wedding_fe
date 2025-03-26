@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
 import UserStatusButton from './UserStatusButton';
+import Notification from "./Notification";
 
 const Navbar = ({ title = "Wedding QR Code" }) => {
     const navigate = useNavigate();
@@ -16,8 +17,8 @@ const Navbar = ({ title = "Wedding QR Code" }) => {
             setIsScrolled(window.scrollY > 100);
         };
 
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
     }, [isHomePage]);
 
     const closeMenu = () => {
@@ -25,18 +26,18 @@ const Navbar = ({ title = "Wedding QR Code" }) => {
     };
 
     const navItems = [
-        { label: "Hướng dẫn", path: "/guide" },
-        { label: "Danh sách mẫu", path: "/templates" }
+        {label: 'Hướng dẫn', path: '/guide'},
+        {label: 'Danh sách mẫu', path: '/templates'}
     ];
 
     const navbarStyle = !isHomePage
-        ? "bg-white shadow-md"
+        ? 'bg-white shadow-md'
         : isScrolled
-            ? "bg-white shadow-md fixed"
-            : "absolute bg-transparent";
+            ? 'bg-white shadow-md fixed'
+            : 'absolute bg-transparent';
 
-    const textStyle = !isHomePage || isScrolled ? "text-primary-800" : "text-white";
-    const navItemStyle = !isHomePage || isScrolled ? "text-gray-800 hover:text-white" : "text-white";
+    const textStyle = !isHomePage || isScrolled ? 'text-primary-800' : 'text-white';
+    const navItemStyle = !isHomePage || isScrolled ? 'text-gray-800 hover:text-white' : 'text-white';
 
     return (
         <header className={`w-full top-0 z-10 transition-all duration-300 ease-in-out ${navbarStyle}`}>
@@ -59,7 +60,10 @@ const Navbar = ({ title = "Wedding QR Code" }) => {
                     ))}
                 </nav>
 
-                <div className={`flex`}>
+                <div className={`flex items-center`}>
+                    <div className="mr-4">
+                        <Notification/>
+                    </div>
                     <UserStatusButton isMenuOpen={isMenuOpen} closeMenu={closeMenu} isHomePage={isHomePage}/>
                     <button
                         className={`lg:hidden ml-4 focus:outline-none menu-toggle max-lg:end ${isScrolled || !isHomePage ? 'text-primary-600' : 'text-white'}`}

@@ -20,10 +20,10 @@ function LoveStory() {
     return (
         <div className="shadow-sm bg-white rounded-lg p-5">
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-gray-800">Danh sách câu chuyện tình yêu</h2>
+                <h2 className="max-md:text-sm md:text-xl font-bold text-gray-800">Danh sách câu chuyện tình yêu</h2>
                 <button
                     onClick={() => openFormModal(null)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-sm shadow-md focus:outline-none"
+                    className="bg-blue-600 hover:bg-blue-700 max-md:text-sm md:text-lg text-white font-semibold py-2 px-4 rounded-sm shadow-md focus:outline-none"
                 >
                     + Thêm mới
                 </button>

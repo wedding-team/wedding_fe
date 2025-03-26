@@ -3,7 +3,9 @@
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { motion } from 'framer-motion'
 
-export default function ModalForm({ isOpen, onClose, title, children, onSubmit }) {
+
+
+export default function ModalForm({ isOpen, onClose, title, children, width = "w-full max-w-3xl" }) {
     return (
         <Dialog open={isOpen} onClose={onClose} className="relative z-50">
             <motion.div
@@ -19,7 +21,7 @@ export default function ModalForm({ isOpen, onClose, title, children, onSubmit }
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="relative w-full max-w-3xl transform overflow-hidden rounded-lg bg-white shadow-xl"
+                    className={`relative ${width} transform overflow-hidden rounded-lg bg-white shadow-xl`}
                 >
                     <DialogPanel>
                         <DialogTitle

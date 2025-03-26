@@ -13,21 +13,14 @@ class AdminApi {
             headers: {"Content-Type": "application/json"},
         });
     }
-
-    static getAllUsers() {
-        return apiClient.get(`/api/v1/get_all_users`, {
+    static getAllUsers(page = 1, search = "") {
+        const encodedSearch = encodeURIComponent(search);
+        return apiClient.get(`/api/v1/admin/admins?q[email_cont]=${encodedSearch}&page=${page}`, {
             headers: getAuthHeaders(),
         });
     }
-
-    static updateRole(userId,role) {
-        return apiClient.put(`/api/v1/update_role_user/${userId}`, {role}, {
-            headers: getAuthHeaders(),
-        });
-    }
-
-    static toggleBlockUser(userId) {
-        return apiClient.put(`/api/v1/toggle_block_user/${userId}`, {}, {
+    static updateUser(userId,data) {
+        return apiClient.put(`/api/v1/admin/admins/${userId}`, data, {
             headers: getAuthHeaders(),
         });
     }

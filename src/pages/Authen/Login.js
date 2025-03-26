@@ -25,7 +25,7 @@ function Login() {
                 Helper.toastSuccess("Đăng nhập thành công!");
                 navigate("/wedding/couple");
             } else {
-                throw new Error(result.payload || "Đăng nhập thất bại");
+                Helper.toastError(result.payload);
             }
         } catch (err) {
             Helper.toastError(err.message || "Đã xảy ra lỗi khi đăng nhập");
@@ -34,6 +34,7 @@ function Login() {
             setSubmitting(false);
         }
     };
+
 
     const formik = useFormik({
         initialValues: { email: "", password: "" },
