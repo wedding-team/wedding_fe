@@ -46,7 +46,6 @@ function WeddingEventList({onEdit}) {
         }, 300);
     };
 
-
     return (
         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
             <SortableContext items={eventList.map((e) => e.id)}>

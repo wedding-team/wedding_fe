@@ -27,6 +27,17 @@ class Helper {
         });
     }
 
+    static toastWarning(message) {
+        toast.warning(message, {
+            style: {
+                background: "white",
+                color: "#ccc938",
+                border: "none",
+                fontWeight: "bold",
+            }
+        })
+    }
+
     static handleApiError(error) {
         if (error.response && error.response.data) {
             const errors = error.response.data;

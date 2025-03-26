@@ -6,11 +6,13 @@ import WeddingGalleryNew from "./WeddingGalleryNew";
 import WeddingGalleryApi from "../../apis/WeddingGalleryApi";
 import WeddingGalleryDelete from "./WeddingGalleryDelete";
 import Helper from "../../utils/Helper";
+import {useSelector} from "react-redux";
 
 function WeddingGalleryList() {
     const [images, setImages] = useState([]);
     const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedImageId, setSelectedImageId] = useState(null);
+    const user = useSelector((state) => state.auth.user);
 
     useEffect(() => {
         fetchData().catch((error) => console.error("Lỗi không mong muốn:", error));
@@ -27,15 +29,36 @@ function WeddingGalleryList() {
 
     const handleUploadFile = async (files) => {
         try {
-            for (let file of files) {
+            const isFreeUser = user?.role === "free";
+            let fileArray = Array.from(files);
+            if (isFreeUser) {
+                if (images.length >= 5) {
+                    return Helper.toastError("Bạn chỉ có thể upload tối đa 5 ảnh!");
+                }
+                const maxUploads = Math.min(fileArray.length, 5 - images.length);
+                fileArray = fileArray.slice(0, maxUploads);
+
+                if (maxUploads < files.length) {
+                    Helper.toastWarning("Chỉ có thể thêm tối đa 5 ảnh, các ảnh vượt quá không được tải lên.");
+                }
+            }
+            if (fileArray.length === 0) return;
+            for (let file of fileArray) {
                 const formData = new FormData();
                 formData.append("wedding_gallery[image]", file);
+                if (!file.type.startsWith("image/")) {
+                    Helper.toastError("Chỉ hỗ trợ upload file hình ảnh!");
+                    continue;
+                }
                 await WeddingGalleryApi.createWeddingGallery(formData);
             }
             await fetchData();
             Helper.toastSuccess("Thêm ảnh thành công");
         } catch (error) {
             console.error("Lỗi khi tải ảnh lên:", error);
+            if (error.response?.status === 422) {
+                Helper.toastError("Lỗi dữ liệu không hợp lệ, vui lòng kiểm tra lại file!");
+            }
         }
     };
 
@@ -66,7 +89,6 @@ function WeddingGalleryList() {
         setImages(newImages);
         try {
             await WeddingGalleryApi.updateWeddingGallery(active.id, { position: newIndex + 1 });
-            console.log("Cập nhật position thành công:", active.id, "=>", newIndex + 1);
         } catch (error) {
             console.error("Lỗi cập nhật position:", error);
         }

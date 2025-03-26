@@ -1,30 +1,17 @@
-import { RiMenu2Fill } from "react-icons/ri";
-import { LuSearch } from "react-icons/lu";
+import {RiMenu2Fill} from "react-icons/ri";
 import {useSelector} from "react-redux";
 
-function Header({ setIsOpen }) {
+function Header({setIsOpen}) {
     const admin = useSelector((state) => state.admin.admin?.data);
 
     return (
-        <div className="flex px-1 py-3 lg:px-6 lg:py-4 border-b relative items-center">
-            <div className="flex-1 flex items-center gap-2 sm:gap-4">
-                <button
-                    className="p-3 text-gray-500 items-center border-gray-200 lg:border lg:rounded-lg"
-                    onClick={() => setIsOpen(prev => !prev)}
-                >
-                    <RiMenu2Fill size={20} />
-                </button>
-                <div className="relative flex items-center w-full max-w-md hidden lg:flex">
-                    <input
-                        type="text"
-                        className="border rounded-lg border-gray-200 p-3 pr-10 w-full"
-                        placeholder="Tìm kiếm..."
-                    />
-                    <button className="absolute right-3 text-gray-500">
-                        <LuSearch size={20} />
-                    </button>
-                </div>
-            </div>
+        <div className="flex px-1 py-3 lg:px-6 lg:py-4 border-b relative items-center bg-white">
+            <button
+                className="p-3 text-gray-500 items-center border-gray-200 lg:border lg:rounded-lg hover:bg-gray-50"
+                onClick={() => setIsOpen(prev => !prev)}
+            >
+                <RiMenu2Fill size={20}/>
+            </button>
             <a
                 href="/"
                 className="absolute left-1/2 -translate-x-1/2 md:hidden flex items-center space-x-2"

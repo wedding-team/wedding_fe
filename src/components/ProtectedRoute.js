@@ -1,15 +1,12 @@
-import React, { useMemo } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const ProtectedRoute = () => {
-    const { isAuthenticated, loading } = useSelector(state => state.auth);
+const ProtectedRoute = ({ isAdmin, isAuthPage }) => {
+    const { isAuthenticated, loading } = useSelector((state) => state.auth);
+    const { isAdminAuthenticated, adminLoading } = useSelector((state) => state.admin);
 
-    const isUserAuthenticated = useMemo(() => {
-        return isAuthenticated || !!localStorage.getItem("accessToken");
-    }, [isAuthenticated]);
-
-    if (loading) {
+    if (loading || adminLoading) {
         return (
             <div className="flex min-h-screen items-center justify-center">
                 <svg
@@ -36,7 +33,19 @@ const ProtectedRoute = () => {
         );
     }
 
-    return isUserAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+    if (isAuthPage && isAuthenticated) {
+        return <Navigate to="/wedding/couple" replace />;
+    }
+
+    if (isAuthPage && isAdminAuthenticated) {
+        return <Navigate to="/admin/dashboard" replace />;
+    }
+
+    if (isAdmin) {
+        return isAdminAuthenticated ? <Outlet /> : <Navigate to="/admin" replace />;
+    } else {
+        return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+    }
 };
 
 export default ProtectedRoute;
