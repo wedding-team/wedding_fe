@@ -23,7 +23,7 @@ function Login() {
             const result = await dispatch(loginUser(values));
             if (result.meta.requestStatus === "fulfilled") {
                 Helper.toastSuccess("Đăng nhập thành công!");
-                navigate("/wedding/couple");
+                navigate("/wedding/general-info");
             } else {
                 Helper.toastError(result.payload);
             }

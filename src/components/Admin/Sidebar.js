@@ -42,7 +42,7 @@ function Sidebar({ isOpen }) {
                     </div>
                     <nav className="space-y-3">
                         <SidebarItem isOpen={isOpen} icon={<RxDashboard size={20}/>} label="Dashboard" path="/admin/dashboard"/>
-                        <SidebarItem isOpen={isOpen} icon={<GrTemplate size={20}/>} label="Quản lý thiệp cưới" path="/admin/cards"/>
+                        <SidebarItem isOpen={isOpen} icon={<GrTemplate size={20}/>} label="Quản lý thiệp cưới" path="/admin/templates"/>
                         <SidebarItem isOpen={isOpen} icon={<FaRegUser size={20}/>} label="Quản lý người dùng" path="/admin/users"/>
                         <SidebarItem isOpen={isOpen} icon={<FaRegBell size={20}/>} label="Thông báo" path="/admin/notifications"/>
                     </nav>

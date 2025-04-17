@@ -4,6 +4,7 @@ import weddingEventReducer from "./weddingEvent/weddingEventSlice";
 import weddingInvitationReducer from "./weddingInvitation/weddingInvitationSlice";
 import loveStoryReducer from "./loveStory/loveStorySlice";
 import adminReducer from "./admin/adminSlice";
+import templateReducer from "./template/templateSlice";
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         weddingEvents: weddingEventReducer,
         weddingInvitations: weddingInvitationReducer,
         loveStories: loveStoryReducer,
+        templates: templateReducer,
     },
 });
 

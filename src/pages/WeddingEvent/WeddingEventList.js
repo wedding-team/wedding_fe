@@ -1,16 +1,18 @@
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchWeddingEvents} from "../../redux/weddingEvent/weddingEventSlice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchWeddingEvents } from "../../redux/weddingEvent/weddingEventSlice";
 import WeddingEventItem from "./WeddingEventItem";
 import WeddingEventDelete from "./WeddingEventDelete";
-import {DndContext, closestCenter} from "@dnd-kit/core";
-import {SortableContext, arrayMove} from "@dnd-kit/sortable";
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import WeddingEventApi from "../../apis/WeddingEventApi";
 
-function WeddingEventList({onEdit}) {
+function WeddingEventList({ onEdit }) {
     const dispatch = useDispatch();
-    const {events} = useSelector((state) => state.weddingEvents);
+    const { events } = useSelector((state) => state.weddingEvents);
     const [eventList, setEventList] = useState([]);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     useEffect(() => {
         dispatch(fetchWeddingEvents());
@@ -20,26 +22,23 @@ function WeddingEventList({onEdit}) {
         setEventList(events);
     }, [events]);
 
-    const [selectedEvent, setSelectedEvent] = useState(null);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
     const openDeleteModal = (event) => {
         setSelectedEvent(event);
         setIsDeleteModalOpen(true);
     };
 
     const handleDragEnd = async (event) => {
-        const {active, over} = event;
+        const { active, over } = event;
         if (!over || active.id === over.id) return;
 
-        const oldIndex = eventList.findIndex((img) => img.id === active.id);
-        const newIndex = eventList.findIndex((img) => img.id === over.id);
+        const oldIndex = eventList.findIndex((e) => e.id === active.id);
+        const newIndex = eventList.findIndex((e) => e.id === over.id);
         const newEvents = arrayMove(eventList, oldIndex, newIndex);
         setEventList(newEvents);
 
         setTimeout(async () => {
             try {
-                await WeddingEventApi.updatePosition(active.id, {position: newIndex + 1});
+                await WeddingEventApi.updatePosition(active.id, { position: newIndex + 1 });
             } catch (error) {
                 console.error("Lỗi cập nhật position:", error);
             }
@@ -49,20 +48,16 @@ function WeddingEventList({onEdit}) {
     return (
         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
             <SortableContext items={eventList.map((e) => e.id)}>
-                <div className="mt-4">
+                <div className="grid grid-cols-1 place-items-center sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
                     {eventList.length > 0 ? (
-                        <ul className="space-y-4">
-                            {eventList.map((event) => (
-                                <WeddingEventItem key={event.id} event={event} onDelete={openDeleteModal}
-                                                  onEdit={onEdit}/>
-                            ))}
-                        </ul>
+                        eventList.map((event) => (
+                            <WeddingEventItem key={event.id} event={event} onDelete={openDeleteModal} onEdit={onEdit} />
+                        ))
                     ) : (
-                        <p className="text-center text-gray-500">Không có sự kiện nào.</p>
+                        <p className="text-center text-gray-500 col-span-full">Không có sự kiện nào.</p>
                     )}
-                    <WeddingEventDelete isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)}
-                                        event={selectedEvent}/>
                 </div>
+                <WeddingEventDelete isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} event={selectedEvent} />
             </SortableContext>
         </DndContext>
     );

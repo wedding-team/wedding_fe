@@ -15,7 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.9",
     "formik": "^2.4.6",
-    "framer-motion": "^12.5.0",
+    "framer-motion": "^12.7.3",
     "navigate": "^0.3.6",
     "postcss-cli": "^11.0.0",
     "react": "^19.0.0",

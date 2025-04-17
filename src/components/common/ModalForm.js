@@ -3,8 +3,6 @@
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { motion } from 'framer-motion'
 
-
-
 export default function ModalForm({ isOpen, onClose, title, children, width = "w-full max-w-3xl" }) {
     return (
         <Dialog open={isOpen} onClose={onClose} className="relative z-50">

@@ -1,13 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import AdminApi from "../../apis/AdminApi";
-
-const clearAuthFromLocalStorage = () => {
-    localStorage.removeItem("access-token");
-    localStorage.removeItem("client");
-    localStorage.removeItem("expiry");
-    localStorage.removeItem("uid");
-    localStorage.removeItem("admin");
-};
+import AdminApi from "../../apis/admin/AdminApi";
+import {clearAuthData, saveAuthData} from "../../utils/AuthHelper";
 
 const initialState = {
     admin: JSON.parse(localStorage.getItem("admin")) || null,
@@ -28,11 +21,7 @@ export const loginAdmin = createAsyncThunk("admin/loginAdmin", async (data, {rej
     try {
         const response = await AdminApi.loginAdmin(data);
         const {headers, data: admin} = response;
-
-        if (!headers["access-token"] || !admin) {
-            throw new Error("Dữ liệu đăng nhập không hợp lệ");
-        }
-
+        if (!headers["access-token"] || !admin) throw new Error("Dữ liệu đăng nhập không hợp lệ");
         const authData = {
             admin,
             token: headers["access-token"],
@@ -41,123 +30,78 @@ export const loginAdmin = createAsyncThunk("admin/loginAdmin", async (data, {rej
             uid: headers["uid"],
         };
 
-        localStorage.setItem("access-token", authData.token);
-        localStorage.setItem("client", authData.client);
-        localStorage.setItem("expiry", authData.expiry);
-        localStorage.setItem("uid", authData.uid);
-        localStorage.setItem("admin", JSON.stringify(authData.admin));
-
+        saveAuthData(authData);
         return authData;
     } catch (error) {
         return rejectWithValue(error.response?.data?.message || "Email hoặc mật khẩu không chính xác");
     }
 });
 
-export const getAllUsers = createAsyncThunk(
-    "admin/getAllUsers",
-    async ({page = 1, search = ""}, {rejectWithValue}) => {
-        try {
-            const response = await AdminApi.getAllUsers(page, search);
-            return {
-                users: response.data.users || [],
-                userCount: response.data.meta?.total_count || 0,
-                totalPages: response.data.meta?.total_pages || 1,
-                currentPage: response.data.meta?.current_page || 1,
-            };
-        } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Lỗi khi lấy danh sách người dùng");
-        }
+export const getAllUsers = createAsyncThunk("admin/getAllUsers", async ({page = 1, search = ""}, {rejectWithValue}) => {
+    try {
+        const {data} = await AdminApi.getAllUsers(page, search);
+        return {...data.meta, users: data.users};
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message || "Lỗi khi lấy danh sách người dùng");
     }
-);
+});
 
-export const updateUser = createAsyncThunk(
-    "admin/updateUser",
-    async ({userId, data}, {rejectWithValue}) => {
-        try {
-            const response = await AdminApi.updateUser(userId, data);
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response?.data?.message || "Không thể cập nhật tài khoản");
-        }
+export const updateUser = createAsyncThunk("admin/updateUser", async ({userId, data}, {rejectWithValue}) => {
+    try {
+        const response = await AdminApi.updateUser(userId, data);
+        return response.data;
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message || "Không thể cập nhật tài khoản");
     }
-);
+});
 
 const adminSlice = createSlice({
     name: "admin",
     initialState,
     reducers: {
         logoutAdmin: (state) => {
+            clearAuthData();
             Object.assign(state, {
-                admin: null,
-                token: null,
-                client: null,
-                expiry: null,
-                uid: null,
-                isAdminAuthenticated: false,
-                users: [],
-                userCount: 0,
-                totalPages: 0,
-                currentPage: 1,
-                error: null,
+                ...initialState,
+                users: state.users,
+                userCount: state.userCount,
+                totalPages: state.totalPages,
+                currentPage: state.currentPage,
             });
-            clearAuthFromLocalStorage();
+        },
+        updateUserInStore: (state, {payload}) => {
+            const user = state.users.find((user) => user.id === payload.id);
+            if (user) Object.assign(user, payload);
         },
     },
     extraReducers: (builder) => {
         builder
-            .addCase(loginAdmin.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
             .addCase(loginAdmin.fulfilled, (state, {payload}) => {
-                Object.assign(state, {
-                    loading: false,
-                    admin: payload.admin,
-                    token: payload.token,
-                    client: payload.client,
-                    expiry: payload.expiry,
-                    uid: payload.uid,
-                    isAdminAuthenticated: true,
-                });
-            })
-            .addCase(loginAdmin.rejected, (state, {payload}) => {
-                state.loading = false;
-                state.error = payload;
-                state.isAdminAuthenticated = false;
+                state.admin = payload.admin;
+                state.token = payload.token;
+                state.client = payload.client;
+                state.expiry = payload.expiry;
+                state.uid = payload.uid;
+                state.isAdminAuthenticated = true;
+                state.error = null;
             })
             .addCase(getAllUsers.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
             .addCase(getAllUsers.fulfilled, (state, {payload}) => {
-                Object.assign(state, {
-                    loading: false,
-                    users: payload.users,
-                    userCount: payload.userCount,
-                    totalPages: payload.totalPages,
-                    currentPage: payload.currentPage,
-                });
+                state.loading = false;
+                state.users = payload.users;
+                state.userCount = payload.total_count;
+                state.totalPages = payload.total_pages;
+                state.currentPage = payload.current_page;
             })
             .addCase(getAllUsers.rejected, (state, {payload}) => {
-                state.loading = false;
-                state.error = payload;
-            })
-            .addCase(updateUser.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(updateUser.fulfilled, (state, {payload}) => {
-                state.loading = false;
-                state.users = state.users.map(user =>
-                    user.id === payload.id ? payload : user
-                );
-            })
-            .addCase(updateUser.rejected, (state, {payload}) => {
                 state.loading = false;
                 state.error = payload;
             });
     },
 });
 
-export const {logoutAdmin} = adminSlice.actions;
+export const {logoutAdmin, updateUserInStore} = adminSlice.actions;
 export default adminSlice.reducer;
