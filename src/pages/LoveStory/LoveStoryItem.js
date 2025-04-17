@@ -1,40 +1,42 @@
 import React from 'react';
-import { FaTrashAlt, FaEdit  } from "react-icons/fa";
 import Helper from "../../utils/Helper";
+import {LiaEdit} from "react-icons/lia";
+import {TrashIcon} from "@heroicons/react/24/solid";
 
 function LoveStoryItem({loveStory, onDelete, onEdit}) {
     return (
-        <li className="flex items-center justify-between py-6 border-b border-gray-300">
+        <div className="bg-white shadow-md rounded-sm overflow-hidden">
             <img
                 src={loveStory.image_url}
                 alt={loveStory.title}
-                className="max-md:w-16 md:w-40 lg:w-64 max-md:h-auto md:h-52 object-cover rounded-lg shadow-lg"
+                className="w-full h-64 object-cover"
             />
-            <div className="flex-1 ml-6 min-w-0">
-                <h3 className="max-md:text-lg md:text-xl lg:text-2xl font-bold text-gray-800 truncate">{loveStory.title}</h3>
-                <p className="text-lg max-md:text-base md:text-lg lg:text-xl text-gray-600 mt-3 w-full break-words line-clamp-4">{loveStory.description}</p>
-                <p className="text-lg max-md:text-base md:text-lg lg:text-xl text-gray-500 mt-2">
+            <div className="p-4">
+                <h3 className="text-lg text-gray-800 text-center uppercase border-gray-400 pb-1 h-16 content-center	">
+                    {loveStory.title}
+                </h3>
+                <p className="text-gray-500 text-sm font-medium text-center">
                     {Helper.formatDate(loveStory.love_story_date)}
                 </p>
+                <p className="text-gray-600 my-2 line-clamp-5">{loveStory.description}</p>
+                <div className="flex justify-center space-x-4 mt-4">
+                    <button
+                        className="p-2 bg-blue-100 rounded text-blue-500 hover:text-blue-700"
+                        onClick={() => onEdit(loveStory)}
+                        title="Chỉnh sửa ảnh"
+                    >
+                        <LiaEdit className="w-6 h-6"/>
+                    </button>
+                    <button
+                        className="p-2 bg-red-100 rounded text-red-500 hover:text-red-700"
+                        onClick={() => onDelete(loveStory)}
+                        title="Xoá sự kiện"
+                    >
+                        <TrashIcon className="w-5 h-5"/>
+                    </button>
+                </div>
             </div>
-            <div className="flex space-x-4 md:ms-12">
-                <button
-                    className="max-lg:p-2 lg:bg-green-500 lg:hover:bg-green-600 text-white lg:py-2 lg:px-5 rounded-sm text-base lg:shadow-md transition focus:outline-none"
-                    onClick={() => onEdit(loveStory)}
-                >
-                    <span className="max-lg:hidden">Chỉnh sửa</span>
-                    <FaEdit  className="lg:hidden text-green-500 hover:text-green-600" size={20} />
-                </button>
-
-                <button
-                    className="max-lg:p-2 lg:bg-red-500 lg:hover:bg-red-600 text-white lg:py-2 lg:px-5 rounded-sm text-base lg:shadow-md transition focus:outline-none"
-                    onClick={() => onDelete(loveStory)}
-                >
-                    <span className="max-lg:hidden">Xoá</span>
-                    <FaTrashAlt className="lg:hidden text-red-500 hover:text-red-600" size={20} />
-                </button>
-            </div>
-        </li>
+        </div>
     );
 }
 

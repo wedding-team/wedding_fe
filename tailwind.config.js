@@ -45,5 +45,14 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addBase }) {
+      addBase({
+        'input:focus': { outline: 'none' },
+        'textarea:focus': { outline: 'none' },
+        'select:focus': { outline: 'none' },
+        'button:focus': { outline: 'none' },
+      });
+    }
+  ],
 }

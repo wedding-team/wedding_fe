@@ -10,7 +10,7 @@ class AuthApi {
     static updateProfile(data) {
         return apiClient.put('/api/v1/profile', data, {
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data",
                 Authorization: localStorage.getItem("Authorization"),
             },
         });

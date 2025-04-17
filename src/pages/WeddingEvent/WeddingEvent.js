@@ -1,7 +1,9 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import WeddingEventList from "./WeddingEventList";
 import ModalForm from "../../components/common/ModalForm";
 import WeddingEventNew from "./WeddingEventNew";
+import {FaRegPlusSquare} from "react-icons/fa";
+import {IoMdMove} from "react-icons/io";
 
 function WeddingEvent() {
     const [isFormModalOpen, setIsFormModalOpen] = useState(false);
@@ -20,12 +22,17 @@ function WeddingEvent() {
     return (
         <div className="mx-auto bg-white shadow-md rounded-lg p-6">
             <div className="flex justify-between items-center mb-4">
-                <h2 className="max-md:text-lg md:text-xl font-semibold">Danh sách sự kiện cưới</h2>
+                <div>
+                    <h2 className="max-md:text-lg md:text-2xl font-semibold">Sự kiện cưới</h2>
+                    <p className="flex gap-2 text-sm text-gray-500">Nhấn giữ nút <IoMdMove className="w-5 h-5"/> và
+                        kéo
+                        thả để thay đổi vị trí các sự kiện cưới</p>
+                </div>
                 <button
                     onClick={() => openFormModal(null)}
-                    className="bg-blue-600 hover:bg-blue-700 max-md:text-sm md:text-lg text-white font-semibold py-2 px-4 rounded-sm shadow-md focus:outline-none"
+                    className="bg-blue-600 hover:bg-blue-700  flex items-center gap-2 max-md:text-sm md:text-md text-white font-semibold py-1 px-4 rounded-sm shadow-md focus:outline-none"
                 >
-                    + Thêm mới
+                    <FaRegPlusSquare/> Thêm mới
                 </button>
             </div>
             <WeddingEventList onEdit={openFormModal}/>

@@ -27,7 +27,10 @@ const Navbar = ({ title = "Wedding QR Code" }) => {
 
     const navItems = [
         {label: 'Hướng dẫn', path: '/guide'},
-        {label: 'Danh sách mẫu', path: '/templates'}
+        {label: 'Website đã tạo', path: '/sites'},
+        {label: 'Danh sách thiệp cưới', path: '/templates'},
+        {label: 'Bảng giá', path: '/price'},
+        {label: 'Giới thiệu', path: '/about'}
     ];
 
     const navbarStyle = !isHomePage

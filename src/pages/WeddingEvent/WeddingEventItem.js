@@ -1,47 +1,69 @@
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import {useSortable} from "@dnd-kit/sortable";
+import {CSS} from "@dnd-kit/utilities";
+import {TrashIcon} from "@heroicons/react/24/solid";
+import {LiaEdit} from "react-icons/lia";
+import {IoMdMove} from "react-icons/io";
+import { MdOutlineAccessTime } from "react-icons/md";
+import { IoCalendarOutline } from "react-icons/io5";
+import { FiMinus } from "react-icons/fi";
 import Helper from "../../utils/Helper";
-import {FaEdit, FaTrashAlt} from "react-icons/fa";
 import React from "react";
 
-function WeddingEventItem({ event, onDelete, onEdit }) {
-    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: event.id });
-
+function WeddingEventItem({event, onDelete, onEdit}) {
+    const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: event.id});
     return (
-        <li
-            ref={setNodeRef}
-            {...attributes}
-            {...listeners}
-            className="flex items-center justify-between py-6 border-b border-gray-300"
-            style={{ transform: CSS.Transform.toString(transform), transition }}
-        >
-            <img src={event.image_url} alt="Ảnh sự kiện" className="max-md:w-16 md:w-40 lg:w-64 max-md:h-auto md:h-52 object-cover rounded-lg shadow-lg" />
-            <div className="flex-1 ml-6 min-w-0">
-                <h3 className="max-md:text-lg md:text-xl lg:text-2xl font-bold text-gray-800 truncate">{event.title}</h3>
-                <p className="text-lg max-md:text-base md:text-lg lg:text-xl text-gray-600 mt-3 w-full break-words line-clamp-4">{event.address}</p>
-                <p className="text-lg max-md:text-base md:text-lg lg:text-xl text-gray-500 mt-2">
-                    {Helper.formatDate(event.event_date)} <span className="mx-2">-</span> {event.event_time}
+        <div className="relative w-full max-w-sm bg-white shadow-lg overflow-hidden rounded-lg"
+             style={{transform: CSS.Transform.toString(transform), transition}}>
+            <div className="relative">
+                <h3 className="text-lg font-medium text-gray-800 text-center mt-2 uppercase">{event.title}</h3>
+                <div className="w-32 h-[1.3px] bg-red-400 mx-auto mb-5 mt-2"></div>
+                <img
+                    src={event.image_url}
+                    alt="Ảnh sự kiện"
+                    className="w-64 h-64 object-cover mx-auto rounded"
+                />
+            </div>
+            <div className="p-4">
+                <p className="text-md text-gray-600 text-center flex items-center justify-center gap-2">
+                    <span className="font-semibold flex items-center gap-1">
+                        <MdOutlineAccessTime/> {event.event_time}
+                    </span>
+                    <FiMinus />
+                    <span className="font-semibold flex items-center gap-1">
+                        <IoCalendarOutline/> {Helper.formatDate(event.event_date)}
+                    </span>
                 </p>
+                <p className="text-md text-gray-500 text-center h-16 content-center">
+                     {event.address}
+                </p>
+                <div className="flex justify-center gap-2 mt-3">
+                    <button
+                        ref={setNodeRef}
+                        {...attributes}
+                        className="p-2 bg-gray-200 rounded text-gray-500 hover:text-gray-700 "
+                        {...listeners}
+                    >
+                        <IoMdMove className="w-6 h-6"/>
+                    </button>
+                    <button
+                        className="p-2 bg-blue-100 rounded text-blue-500 hover:text-blue-700"
+                        onPointerDownCapture={(e) => e.stopPropagation()}
+                        onClick={() => onEdit(event)}
+                        title="Chỉnh sửa ảnh"
+                    >
+                        <LiaEdit className="w-6 h-6"/>
+                    </button>
+                    <button
+                        className="p-2 bg-red-100 rounded text-red-500 hover:text-red-700"
+                        onPointerDownCapture={(e) => e.stopPropagation()}
+                        onClick={() => onDelete(event)}
+                        title="Xoá sự kiện"
+                    >
+                        <TrashIcon className="w-5 h-5"/>
+                    </button>
+                </div>
             </div>
-            <div className="flex space-x-4">
-                <button
-                    className="max-lg:p-2 lg:bg-green-500 lg:hover:bg-green-600 text-white lg:py-2 lg:px-5 rounded-sm text-base lg:shadow-md transition focus:outline-none"
-                    onPointerDownCapture={(e) => e.stopPropagation()}
-                    onClick={() => onEdit(event)}
-                >
-                    <span className="max-lg:hidden">Chỉnh sửa</span>
-                    <FaEdit  className="lg:hidden text-green-500 hover:text-green-600" size={20} />
-                </button>
-                <button
-                    className="max-lg:p-2 lg:bg-red-500 lg:hover:bg-red-600 text-white lg:py-2 lg:px-5 rounded-sm text-base lg:shadow-md transition focus:outline-none"
-                    onPointerDownCapture={(e) => e.stopPropagation()}
-                    onClick={() => onDelete(event)}
-                >
-                    <span className="max-lg:hidden">Xoá</span>
-                    <FaTrashAlt className="lg:hidden text-red-500 hover:text-red-600" size={20} />
-                </button>
-            </div>
-        </li>
+        </div>
     );
 }
 

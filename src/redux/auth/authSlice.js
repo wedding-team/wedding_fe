@@ -56,6 +56,7 @@ export const signUp = createAsyncThunk("auth/signup", async (data, {rejectWithVa
 export const updateProfile = createAsyncThunk("auth/updateProfile", async (data, {rejectWithValue}) => {
     try {
         const response = await AuthApi.updateProfile(data);
+        console.log(response.data)
         return response.data;
     } catch (error) {
         return rejectWithValue(error.response?.data?.error);

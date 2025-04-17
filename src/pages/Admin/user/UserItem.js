@@ -1,18 +1,15 @@
 import Helper from "../../../utils/Helper";
 
-const UserItem = ({ index, user, onOpenModal }) => {
+const UserItem = ({index, user, onOpenModal}) => {
     return (
         <tr className="border-b hover:bg-gray-100 transition duration-200 text-sm">
             <td className="px-1 py-2 text-center">{index + 1}</td>
             <td className="py-2 text-left hidden md:table-cell">
-                <img
-                    src={user?.image || "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"}
-                    alt={user.name}
-                    className="w-8 h-8 rounded-full border shadow-sm "
-                />
+                <img src={user?.image || "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt={user.name}
+                     className="w-8 h-8 rounded-full border shadow-sm "/>
             </td>
             <td className="px-3 py-2 text-left">{user?.name || '-'}</td>
-            <td className="px-2 py-2 text-left">{user.email}</td>
+            <td className="px-2 py-2 text-left w-0">{Helper.truncateEmail(user.email, 25)}</td>
             <td className="px-2 py-2 text-center font-semibold capitalize">{user.role}</td>
             <td className="px-2 py-2 text-center hidden lg:table-cell">{Helper.formatDate(user.created_at)}</td>
             <td className="px-2 py-2 text-center hidden lg:table-cell">{Helper.formatDate(user.updated_at)}</td>

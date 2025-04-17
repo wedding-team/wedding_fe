@@ -35,7 +35,7 @@ class Helper {
                 border: "none",
                 fontWeight: "bold",
             }
-        })
+        });
     }
 
     static handleApiError(error) {
@@ -50,9 +50,9 @@ class Helper {
 
             const errorMessages = Object.keys(errors)
                 .map((field) => {
-                    const uniqueErrors = [...new Set(errors[field])]; 
+                    const uniqueErrors = [...new Set(errors[field])];
                     const translatedErrors = uniqueErrors.map(
-                        (msg) => translations[msg] || msg 
+                        (msg) => translations[msg] || msg
                     );
                     return translatedErrors.join(", ");
                 })
@@ -66,11 +66,36 @@ class Helper {
 
     static formatDate(dateString, locale = "vi-VN") {
         if (!dateString) return "N/A";
-        return new Intl.DateTimeFormat(locale, { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(dateString));
+        return new Intl.DateTimeFormat(locale, {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        }).format(new Date(dateString));
     }
 
-    static getCurrentDate = () => new Date().toISOString().split("T")[0];
-    static getCurrentTime = () => new Date().toTimeString().slice(0, 5);
+    static formatDateTime(date) {
+        if (!date) return '-';
+        return new Date(date).toLocaleString('vi-VN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+    }
+
+    static getCurrentDate() {
+        return new Date().toISOString().split("T")[0];
+    }
+
+    static getCurrentTime() {
+        return new Date().toTimeString().slice(0, 5);
+    }
+
+    static truncateEmail(email, maxLength = 20) {
+        if (!email || email.length <= maxLength) return email;
+        return email.substring(0, maxLength) + '...';
+    }
 }
 
 export default Helper;

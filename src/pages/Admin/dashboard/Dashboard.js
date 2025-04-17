@@ -1,31 +1,33 @@
-import {AiOutlineUsergroupAdd} from "react-icons/ai";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {getAllUsers} from "../../../redux/admin/adminSlice";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import { useEffect, useState } from "react";
+import AdminApi from "../../../apis/admin/AdminApi";
 
 function Dashboard() {
-    const dispatch = useDispatch();
-    const userCount = useSelector((state) => state.admin.userCount);
-    const currentPage = useSelector((state) => state.admin.currentPage);
-    const loading = useSelector((state) => state.admin.loading);
+    const [totalUsers, setTotalUsers] = useState(0);
 
     useEffect(() => {
-        dispatch(getAllUsers({page: currentPage, search: ""}));
-    }, [dispatch, currentPage]);
+        const fetchUsers = async () => {
+            try {
+                const result = await AdminApi.getTotalUsers();
+                setTotalUsers(result.data.total_users);
+            } catch (error) {
+                console.error("Lỗi khi lấy tổng số người dùng:", error);
+            }
+        };
+        fetchUsers();
+    }, []);
 
     return (
-        <div>
-            <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
-                <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl">
-                    <AiOutlineUsergroupAdd size={20}/>
-                </div>
-                <div className="flex items-end justify-between mt-5">
-                    <div>
-                        <span className="text-sm text-gray-500">Người dùng</span>
-                        <h4 className="mt-2 font-bold text-gray-800 text-title-sm">
-                            {loading ? "Đang tải..." : userCount}
-                        </h4>
-                    </div>
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
+            <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl">
+                <AiOutlineUsergroupAdd size={20} />
+            </div>
+            <div className="flex items-end justify-between mt-5">
+                <div>
+                    <span className="text-sm text-gray-500">Người dùng</span>
+                    <h4 className="mt-2 font-bold text-gray-800 text-title-sm">
+                        {totalUsers}
+                    </h4>
                 </div>
             </div>
         </div>

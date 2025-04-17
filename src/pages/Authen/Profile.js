@@ -18,8 +18,6 @@ function Profile({ onClose }) {
         },
         enableReinitialize: true,
         onSubmit: async (values, { setSubmitting }) => {
-            console.log("Dữ liệu gửi lên API:", values);
-
             try {
                 await dispatch(updateProfile({user: values})).unwrap();
                 Helper.toastSuccess("Cập nhật thành công!");

@@ -1,4 +1,4 @@
-import apiClient from "./apiClient";
+import apiClient from "../apiClient";
 
 const getAuthHeaders = () => ({
     "access-token": localStorage.getItem("access-token"),
@@ -15,12 +15,18 @@ class AdminApi {
     }
     static getAllUsers(page = 1, search = "") {
         const encodedSearch = encodeURIComponent(search);
-        return apiClient.get(`/api/v1/admin/admins?q[email_cont]=${encodedSearch}&page=${page}`, {
+        return apiClient.get(`/api/v1/admin/users?q[email_cont]=${encodedSearch}&page=${page}`, {
             headers: getAuthHeaders(),
         });
     }
     static updateUser(userId,data) {
-        return apiClient.put(`/api/v1/admin/admins/${userId}`, data, {
+        return apiClient.put(`/api/v1/admin/users/${userId}`, data, {
+            headers: getAuthHeaders(),
+        });
+    }
+
+    static getTotalUsers() {
+        return apiClient.get(`/api/v1/admin/admins`, {
             headers: getAuthHeaders(),
         });
     }

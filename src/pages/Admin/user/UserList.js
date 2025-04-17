@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers, updateUser } from "../../../redux/admin/adminSlice";
+import { getAllUsers, updateUser, updateUserInStore } from "../../../redux/admin/adminSlice";
 import Helper from "../../../utils/Helper";
 import UserItem from "./UserItem";
 import ModalConfirm from "../../../components/common/ModalConfirm";
@@ -16,7 +16,7 @@ function UserList() {
 
     useEffect(() => {
         dispatch(getAllUsers({ page: currentPage, search: searchTerm }));
-    }, [dispatch, currentPage, searchTerm]);
+    }, [dispatch, searchTerm, currentPage]);
 
     const handleOpenModal = useCallback((action, user) => {
         setSelectedUser({ ...user, action });
@@ -29,10 +29,10 @@ function UserList() {
         const updateData = action === "role" ? { role: role === "premium" ? "free" : "premium" } : { blocked: !blocked };
         try {
             await dispatch(updateUser({ userId: id, data: updateData })).unwrap();
-            dispatch(getAllUsers(currentPage));
-            Helper.toastSuccess(action === "role" ? `Cập nhật vai trò thành ${updateData.role} thành công` : blocked ? "Mở khóa thành công" : "Khóa tài khoản thành công");
+            dispatch(updateUserInStore({ id, ...updateData }));
+            Helper.toastSuccess(`Cập nhật ${action === "role" ? `vai trò thành ${updateData.role}` : blocked ? "mở khóa" : "khóa"} thành công`);
         } catch {
-            Helper.toastError("Không thể cập nhật trạng thái tài khoản");
+            Helper.toastError("Không thể cập nhật tài khoản");
         }
         setIsOpen(false);
     };
@@ -42,6 +42,11 @@ function UserList() {
             dispatch(getAllUsers({ page, search: searchTerm }));
         }
     };
+
+    const userList = useMemo(
+        () => users.map((user, index) => <UserItem key={user.id} index={index} user={user} onOpenModal={handleOpenModal} />),
+        [users, handleOpenModal]
+    );
 
     if (error) return <p className="text-center text-red-500">{error}</p>;
 
@@ -66,11 +71,7 @@ function UserList() {
                         <th className="py-2 px-2 text-center">Hành động</th>
                     </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200">
-                    {users.map((user, index) => (
-                        <UserItem key={user.id} index={index} user={user} onOpenModal={handleOpenModal} />
-                    ))}
-                    </tbody>
+                    <tbody className="divide-y divide-gray-200">{userList}</tbody>
                 </table>
             </div>
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
@@ -81,7 +82,7 @@ function UserList() {
                     onConfirm={handleConfirm}
                     confirmText="Xác nhận"
                     title={selectedUser.action === "role" ? "Xác nhận thay đổi vai trò" : "Xác nhận khóa/mở khóa"}
-                    description={`Bạn có chắc muốn ${selectedUser.action === "role" ? selectedUser.role === "premium" ? "hạ cấp" : "nâng cấp" : selectedUser.blocked ? "mở khóa" : "khóa"} tài khoản này không?`}
+                    description={`Bạn có chắc muốn ${selectedUser.action === "role" ? (selectedUser.role === "premium" ? "hạ cấp" : "nâng cấp") : selectedUser.blocked ? "mở khóa" : "khóa"} tài khoản này không?`}
                 />
             )}
         </div>

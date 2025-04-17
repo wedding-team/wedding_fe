@@ -1,22 +1,12 @@
-import { useEffect, useState } from "react";
-import {
-    DndContext,
-    closestCenter,
-    useSensors,
-    useSensor,
-    PointerSensor,
-} from "@dnd-kit/core";
-import {
-    SortableContext,
-    arrayMove,
-    verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import {useEffect, useState} from "react";
+import {DndContext, closestCenter, useSensors, useSensor, PointerSensor,} from "@dnd-kit/core";
+import {SortableContext, arrayMove, verticalListSortingStrategy,} from "@dnd-kit/sortable";
 import WeddingGalleryItem from "./WeddingGalleryItem";
 import WeddingGalleryNew from "./WeddingGalleryNew";
 import WeddingGalleryApi from "../../apis/WeddingGalleryApi";
 import WeddingGalleryDelete from "./WeddingGalleryDelete";
 import Helper from "../../utils/Helper";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
 function WeddingGalleryList() {
     const [images, setImages] = useState([]);
@@ -25,11 +15,7 @@ function WeddingGalleryList() {
     const user = useSelector((state) => state.auth.user);
 
     const sensors = useSensors(
-        useSensor(PointerSensor, {
-            activationConstraint: {
-                distance: 8,
-            },
-        })
+        useSensor(PointerSensor, {activationConstraint: {distance: 8}})
     );
 
     useEffect(() => {
@@ -98,16 +84,13 @@ function WeddingGalleryList() {
     };
 
     const handleDragOver = async (event) => {
-        const { active, over } = event;
+        const {active, over} = event;
         if (!over || active.id === over.id) return;
-
         const oldIndex = images.findIndex((img) => img.id === active.id);
         const newIndex = images.findIndex((img) => img.id === over.id);
-
         if (oldIndex !== newIndex) {
             const newImages = arrayMove(images, oldIndex, newIndex);
             setImages(newImages);
-
             try {
                 await WeddingGalleryApi.updateWeddingGallery(active.id, {
                     position: newIndex + 1,
@@ -120,12 +103,10 @@ function WeddingGalleryList() {
     };
 
     const handleDragEnd = async (event) => {
-        const { active, over } = event;
+        const {active, over} = event;
         if (!over || active.id === over.id) return;
-
         const oldIndex = images.findIndex((img) => img.id === active.id);
         const newIndex = images.findIndex((img) => img.id === over.id);
-
         if (oldIndex !== newIndex) {
             Helper.toastSuccess("Cập nhật vị trí thành công");
         }
@@ -133,35 +114,26 @@ function WeddingGalleryList() {
 
     return (
         <div>
-            <DndContext
-                sensors={sensors}
-                collisionDetection={closestCenter}
-                onDragOver={handleDragOver}
-                onDragEnd={handleDragEnd}
-            >
-                <SortableContext
-                    items={images.map((img) => img.id)}
-                    strategy={verticalListSortingStrategy}
-                >
-                    <div className="grid max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 transition-all duration-200 ease-in-out">
+            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragOver={handleDragOver}
+                        onDragEnd={handleDragEnd}>
+                <SortableContext items={images.map((img) => img.id)} strategy={verticalListSortingStrategy}>
+                    <div
+                        className="grid max-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 transition-all duration-200 ease-in-out">
                         {images.map((image, index) => (
                             <WeddingGalleryItem
                                 key={image.id}
                                 image={image}
+                                galleryImages={images}
                                 index={index}
                                 onDelete={handleDeleteClick}
                             />
                         ))}
-                        <WeddingGalleryNew onUpload={handleUploadFile} />
+                        <WeddingGalleryNew onUpload={handleUploadFile}/>
                     </div>
                 </SortableContext>
             </DndContext>
-
-            <WeddingGalleryDelete
-                isOpen={isDeleteModalOpen}
-                onClose={() => setDeleteModalOpen(false)}
-                onConfirm={handleConfirmDelete}
-            />
+            <WeddingGalleryDelete isOpen={isDeleteModalOpen} onClose={() => setDeleteModalOpen(false)}
+                                  onConfirm={handleConfirmDelete}/>
         </div>
     );
 }
