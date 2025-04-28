@@ -13,7 +13,6 @@ const FileUpload = ({
                         previewImage
                     }) => {
     const fileInputRef = useRef(null);
-
     const handleIconClick = () => {
         if (fileInputRef.current) {
             fileInputRef.current.click();
@@ -21,7 +20,7 @@ const FileUpload = ({
     };
 
     return (
-        <div className="relative flex flex-col items-center">
+        <div className="relative flex flex-col max-sm:items-center">
             <div
                 className={`relative ${size} bg-gray-200 overflow-hidden mb-3 flex items-center justify-center 
                 ${rounded === "circle" ? "rounded-full" : "rounded-md"}`}

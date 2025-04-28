@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
 import UserStatusButton from './UserStatusButton';
 import Notification from "./Notification";
+import {RxHamburgerMenu} from "react-icons/rx";
 
-const Navbar = ({ title = "Wedding QR Code" }) => {
+const Navbar = ({title = "Wedding QR Code"}) => {
     const navigate = useNavigate();
     const location = useLocation();
     const [isScrolled, setIsScrolled] = useState(false);
@@ -12,11 +13,9 @@ const Navbar = ({ title = "Wedding QR Code" }) => {
 
     useEffect(() => {
         if (!isHomePage) return;
-
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 100);
         };
-
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isHomePage]);
@@ -33,11 +32,8 @@ const Navbar = ({ title = "Wedding QR Code" }) => {
         {label: 'Giới thiệu', path: '/about'}
     ];
 
-    const navbarStyle = !isHomePage
-        ? 'bg-white shadow-md'
-        : isScrolled
-            ? 'bg-white shadow-md fixed'
-            : 'absolute bg-transparent';
+    const navbarStyle = !isHomePage ? 'bg-white shadow-md' : isScrolled
+        ? 'bg-white shadow-md fixed' : 'absolute bg-transparent';
 
     const textStyle = !isHomePage || isScrolled ? 'text-primary-800' : 'text-white';
     const navItemStyle = !isHomePage || isScrolled ? 'text-gray-800 hover:text-white' : 'text-white';
@@ -62,33 +58,20 @@ const Navbar = ({ title = "Wedding QR Code" }) => {
                         </button>
                     ))}
                 </nav>
-
                 <div className={`flex items-center`}>
                     <div className="mr-4">
                         <Notification/>
                     </div>
                     <UserStatusButton isMenuOpen={isMenuOpen} closeMenu={closeMenu} isHomePage={isHomePage}/>
                     <button
-                        className={`lg:hidden ml-4 focus:outline-none menu-toggle max-lg:end ${isScrolled || !isHomePage ? 'text-primary-600' : 'text-white'}`}
+                        className={`lg:hidden text-black bg-white rounded-full px-3 py-2 ml-4 focus:outline-none menu-toggle max-lg:end ${isScrolled || !isHomePage ? 'text-primary-600' : 'text-white'}`}
                         onClick={(e) => {
                             e.stopPropagation();
                             setIsMenuOpen(!isMenuOpen);
                         }}
                         aria-label="Toggle menu"
                     >
-                        {isMenuOpen ? (
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                      d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        ) : (
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                      d="M4 6h16M4 12h16m-7 6h7"></path>
-                            </svg>
-                        )}
+                        <RxHamburgerMenu size={20}/>
                     </button>
                 </div>
             </div>

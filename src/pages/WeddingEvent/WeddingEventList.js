@@ -48,13 +48,13 @@ function WeddingEventList({ onEdit }) {
     return (
         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
             <SortableContext items={eventList.map((e) => e.id)}>
-                <div className="grid grid-cols-1 place-items-center sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                <div className="grid grid-cols-1 place-items-center px-1 pb-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
                     {eventList.length > 0 ? (
                         eventList.map((event) => (
                             <WeddingEventItem key={event.id} event={event} onDelete={openDeleteModal} onEdit={onEdit} />
                         ))
                     ) : (
-                        <p className="text-center text-gray-500 col-span-full">Không có sự kiện nào.</p>
+                        <p className="text-gray-500 col-span-full">Chưa có sự kiện nào.</p>
                     )}
                 </div>
                 <WeddingEventDelete isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} event={selectedEvent} />

@@ -5,7 +5,7 @@ import {TrashIcon} from "@heroicons/react/24/solid";
 
 function LoveStoryItem({loveStory, onDelete, onEdit}) {
     return (
-        <div className="bg-white shadow-md rounded-sm overflow-hidden">
+        <div className="bg-white border shadow-md rounded-lg overflow-hidden">
             <img
                 src={loveStory.image_url}
                 alt={loveStory.title}
