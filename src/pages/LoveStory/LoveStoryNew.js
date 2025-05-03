@@ -42,17 +42,17 @@ function LoverStoryNew({loveStory, onClose}) {
     return (
         <form onSubmit={formik.handleSubmit}>
             <LoveStoryForm formik={formik}/>
-            <div className="flex justify-end mt-4">
+            <div className="flex justify-end">
                 <button
                     type="button"
                     onClick={onClose}
-                    className="mr-3 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+                    className="mr-3 px-3 py-1.5 text-sm md:px-4 md:py-2 md:text-base text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
                 >
                     Hủy
                 </button>
                 <button
                     type="submit"
-                    className="px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+                    className="px-3 py-1.5 text-sm md:px-4 md:py-2 md:text-base text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
                     disabled={formik.isSubmitting}
                 >
                     {formik.isSubmitting ? "Đang lưu..." : "Lưu"}

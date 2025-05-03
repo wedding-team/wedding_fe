@@ -12,7 +12,7 @@ import React from "react";
 function WeddingEventItem({event, onDelete, onEdit}) {
     const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: event.id});
     return (
-        <div className="relative w-full max-w-sm bg-white shadow-lg overflow-hidden rounded-lg"
+        <div className="border w-full max-w-sm bg-white shadow-md overflow-hidden rounded-lg"
              style={{transform: CSS.Transform.toString(transform), transition}}>
             <div className="relative">
                 <h3 className="text-lg font-medium text-gray-800 text-center mt-2 uppercase">{event.title}</h3>

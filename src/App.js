@@ -7,7 +7,7 @@ import Login from "./pages/Authen/Login";
 import AdminLogin from "./pages/Admin/session/Login";
 import SignUp from "./pages/Authen/SignUp";
 import WeddingLayout from "./layout/WeddingLayout";
-import WeddingInvitation from "./pages/WeddingInvitation/WeddingInvitation";
+import Couple from "./pages/Couple/Couple";
 import WeddingEvent from "./pages/WeddingEvent/WeddingEvent";
 import WeddingGallery from "./pages/WeddingGallery/WeddingGallery";
 import LoveStory from "./pages/LoveStory/LoveStory";
@@ -30,7 +30,7 @@ function App() {
                 <Route path="/templates" element={<TemplateList/>}/>
                 <Route element={<ProtectedRoute isAdmin={false} />}>
                     <Route path="wedding" element={<WeddingLayout/>}>
-                        <Route path="couple" element={<WeddingInvitation/>}/>
+                        <Route path="couple" element={<Couple/>}/>
                         <Route path="event" element={<WeddingEvent/>}/>
                         <Route path="image" element={<WeddingGallery/>}/>
                         <Route path="love-story" element={<LoveStory/>}/>

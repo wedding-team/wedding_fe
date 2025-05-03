@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import Helper from "../../utils/Helper";
 import FormLogin from "../../components/Auth/FormLogin";
 import { loginUser } from "../../redux/auth/authSlice";
+import {updateGeneralInfo} from "../../redux/generalInfo/generalInfoSlice";
 
 const validationSchema = Yup.object({
     email: Yup.string().email("Email không hợp lệ").required("Vui lòng nhập email"),
@@ -23,6 +24,19 @@ function Login() {
             const result = await dispatch(loginUser(values));
             if (result.meta.requestStatus === "fulfilled") {
                 Helper.toastSuccess("Đăng nhập thành công!");
+
+                const pendingTemplateCode = localStorage.getItem("pendingTemplateCode");
+                if (pendingTemplateCode) {
+                    try {
+                        await dispatch(updateGeneralInfo({ template_code: pendingTemplateCode })).unwrap();
+                        localStorage.removeItem("pendingTemplateCode");
+                        Helper.toastSuccess("Đã áp dụng mẫu cưới thành công!");
+                    } catch (err) {
+                        console.error("Lỗi khi update template sau login:", err);
+                        Helper.toastError("Đã đăng nhập nhưng lỗi áp dụng mẫu, vui lòng thử lại!");
+                    }
+                }
+
                 navigate("/wedding/general-info");
             } else {
                 Helper.toastError(result.payload);

@@ -1,38 +1,38 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import introVideo from '../../../assets/videos/wedding_intro.mp4';
+import introVideo from '../../../assets/videos/WeddingVideo.mp4';
 
 const HeroSection = () => {
     const navigate = useNavigate();
 
     return (
-        <section className="relative w-full h-[90vh] md:h-screen">
+        <section className="relative w-auto h-[70vh] md:h-[95vh]">
             <video
                 autoPlay
                 muted
                 loop
                 className="absolute top-0 left-0 w-full h-full object-cover"
             >
-                <source src={introVideo} type="video/mp4" />
+                <source src={introVideo} type="video/mp4"/>
                 Trình duyệt của bạn không hỗ trợ video.
             </video>
 
-            <div className="absolute inset-0 bg-gradient-to-r from-red-600/30 to-pink-600/30"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-gray-600/20"></div>
 
-            <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-white px-4 max-w-4xl mx-auto">
-                    <h1 className="max-md:text-2xl md:text-4xl font-bold mb-6 leading-tight">
+            <div className="absolute inset-0 flex items-center justify-center px-4">
+                <div className="text-center text-white w-full max-w-4xl mx-auto">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6 leading-tight">
                         <span className="block">Wedding QR Code</span>
-                        <span className="block max-sm:text-lg mt-3 sm:text-2xl font-light">
-              Website tạo thiệp cưới số hàng đầu Việt Nam
+                        <span className="block text-base sm:text-lg md:text-2xl mt-2 md:mt-3 font-light">
+                Website tạo thiệp cưới số hàng đầu Việt Nam
             </span>
                     </h1>
-                    <p className="md:text-sm max-md:text-lg font-light max-w-2xl mx-auto mb-10 opacity-90">
+                    <p className="text-sm sm:text-base md:text-lg font-light max-w-2xl mx-auto mb-6 md:mb-10 opacity-90">
                         Chọn mẫu cưới trọn gói theo cách riêng của bạn!
                     </p>
                     <button
                         onClick={() => navigate('/wedding/general-info')}
-                        className="max-md:border border-white md:border-2 bg-transparent backdrop-blur-md text-white px-8 py-4 rounded-full text-lg font-semibold transition-all max-md:text-sm md:shadow-lg hover:shadow-xl transform hover:scale-105 duration-300"
+                        className="border border-white md:border-2 bg-transparent backdrop-blur-md text-white px-6 py-3 md:px-8 md:py-4 rounded-full text-sm sm:text-base md:text-lg font-semibold transition-all hover:shadow-xl transform hover:scale-105 duration-300"
                     >
                         Bắt Đầu Tạo Thiệp
                     </button>

@@ -14,14 +14,14 @@ function WeddingGalleryNew({onUpload }) {
     };
 
     return (
-        <label className="flex justify-center items-center w-full h-full object-cover rounded-md border cursor-pointer hover:bg-gray-50 transition group">
-            <div className="text-center">
-                <PhotoIcon className="mx-auto size-12 text-gray-300" />
-                <div className="mt-2 text-gray-600 max-sm:text-xs sm:text-sm">
-                    <p className="font-semibold text-blue-600 group-hover:text-blue-800 mb-1 ">Kéo ảnh hoặc nhấn vào đây để tải lên</p>
-
-                <p className="text-xs text-gray-600">Hỗ trợ PNG, JPG (chọn nhiều ảnh)</p>
-                </div>
+        <label
+            className="flex flex-col justify-center items-center w-full aspect-square rounded-md border border-dashed cursor-pointer hover:bg-gray-50 transition group bg-white p-3">
+            <PhotoIcon className="size-8 sm:size-10 md:size-12 text-gray-300 mb-2"/>
+            <div className="text-center text-gray-600 text-xs sm:text-sm px-2 sm:px-0">
+                <p className="font-semibold text-blue-600 group-hover:text-blue-800 mb-1 leading-tight">
+                    Kéo ảnh hoặc nhấn để tải lên
+                </p>
+                <p className="text-[10px] sm:text-xs text-gray-500">Hỗ trợ PNG, JPG (nhiều ảnh)</p>
             </div>
             <input
                 type="file"

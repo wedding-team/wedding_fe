@@ -2,7 +2,7 @@ import React from 'react';
 
 const FamilyInfo = ({ formik, prefix }) => {
     return (
-        <div className="p-4 space-y-4">
+        <div className="p-4 space-y-4 bg-white">
             <div className="grid grid-cols-2 gap-4">
                 {[
                     { label: `Ba ${prefix === 'bride' ? 'cô dâu' : 'chú rể'}`, name: `${prefix}_dad` },

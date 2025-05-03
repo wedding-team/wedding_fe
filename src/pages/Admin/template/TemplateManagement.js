@@ -1,13 +1,27 @@
 import TemplateList from "./TemplateList";
 import { FaPlus } from "react-icons/fa6";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ModalForm from "../../../components/common/ModalForm";
 import TemplateNew from "./TemplateNew";
+import CategoryApi from "../../../apis/CategoryApi";
 
 function TemplateManagement() {
     const [isFormModalOpen, setIsFormModalOpen] = useState(false);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
     const [isEdit, setIsEdit] = useState(false);
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const res = await CategoryApi.getAllCategories();
+                setCategories(res.data.categories);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchCategories();
+    }, [])
 
     const openFormModal = (templateData) => {
         setSelectedTemplate(templateData);
@@ -29,13 +43,13 @@ function TemplateManagement() {
                     Thêm mới <FaPlus className="ml-2"/>
                 </button>
             </div>
-            <TemplateList openFormModal={openFormModal} />
+            <TemplateList openFormModal={openFormModal} categories={categories}/>
             <ModalForm
                 isOpen={isFormModalOpen}
                 onClose={closeFormModal}
                 title={selectedTemplate ? "Cập nhật thiệp cưới" : "Thêm mới thiệp cưới"}
             >
-                <TemplateNew template={selectedTemplate} onClose={closeFormModal} isEdit={isEdit}/>
+                <TemplateNew template={selectedTemplate} onClose={closeFormModal} isEdit={isEdit} categories={categories}/>
             </ModalForm>
         </div>
     );
