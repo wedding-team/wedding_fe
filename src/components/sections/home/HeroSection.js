@@ -6,7 +6,7 @@ const HeroSection = () => {
     const navigate = useNavigate();
 
     return (
-        <section className="relative w-auto h-[70vh] md:h-[95vh]">
+        <section className="relative w-auto h-[70vh] md:h-[90vh]">
             <video
                 autoPlay
                 muted
@@ -21,13 +21,13 @@ const HeroSection = () => {
 
             <div className="absolute inset-0 flex items-center justify-center px-4">
                 <div className="text-center text-white w-full max-w-4xl mx-auto">
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6 leading-tight">
-                        <span className="block">Wedding QR Code</span>
+                    <div className=" mb-4 md:mb-6 leading-tight">
+                        <h1 className="text-2xl md:text-4xl font-bold block uppercase">website tạo Thiệp cưới online miễn phí</h1>
                         <span className="block text-base sm:text-lg md:text-2xl mt-2 md:mt-3 font-light">
-                Website tạo thiệp cưới số hàng đầu Việt Nam
-            </span>
-                    </h1>
-                    <p className="text-sm sm:text-base md:text-lg font-light max-w-2xl mx-auto mb-6 md:mb-10 opacity-90">
+                            Gửi yêu thương trọn vẹn – Thiết kế thiệp cưới số tinh tế & hiện đại
+                        </span>
+                    </div>
+                    <p className="text-xs md:text-lg font-light max-w-2xl mx-auto mb-4 md:mb-6 opacity-90">
                         Chọn mẫu cưới trọn gói theo cách riêng của bạn!
                     </p>
                     <button

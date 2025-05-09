@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import TemplateApi from "../../apis/TemplateApi";
 import {useDispatch} from "react-redux";
 import {updateGeneralInfo} from "../../redux/generalInfo/generalInfoSlice";
+import Footer from "../../components/common/Footer";
 
 function TemplateList() {
     const [templates, setTemplates] = useState([]);
@@ -84,6 +85,7 @@ function TemplateList() {
                     ))}
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

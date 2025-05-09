@@ -1,5 +1,5 @@
 import {Toaster} from 'sonner';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import '../src/index.css';
 import HomePage from './pages/Home';
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -27,6 +27,7 @@ function App() {
                 <Route path="/admin" element={<AdminLogin/>}/>
                 <Route path="/sign-up" element={<SignUp/>}/>
                 <Route path="/" element={<HomePage/>}/>
+                <Route path="/404" element={<NotFound />} />
                 <Route path="/templates" element={<TemplateList/>}/>
                 <Route element={<ProtectedRoute isAdmin={false} />}>
                     <Route path="wedding" element={<WeddingLayout/>}>
@@ -46,7 +47,7 @@ function App() {
                         <Route path="settings" element={""}/>
                     </Route>
                 </Route>
-                <Route path="*" element={<NotFound />} />
+                <Route path="*" element={<Navigate to="/404" replace />} />
             </Routes>
             <Toaster position="bottom-right" richColors/>
         </BrowserRouter>
