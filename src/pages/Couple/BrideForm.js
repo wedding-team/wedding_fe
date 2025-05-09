@@ -8,7 +8,7 @@ import {TextAreaInput} from "../../components/common/TextAreaInput";
 function BrideForm({formik}) {
     return (
         <div className="md:px-4 space-y-4">
-            <h2 className="max-md:text-lg md:text-2xl font-semibold text-center">Thông tin cô dâu</h2>
+            <h2 className="max-md:text-xl md:text-3xl font-semibold text-center">Thông tin cô dâu</h2>
             <div className="flex gap-3 sm:flex-row flex-col">
                 <div>
                     <FileUpload

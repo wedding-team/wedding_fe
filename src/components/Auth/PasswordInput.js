@@ -32,7 +32,7 @@ function PasswordInput({
                     id={id}
                     type={showPassword ? "text" : "password"}
                     autoComplete={autoComplete}
-                    className={`max-md:h-12 w-full px-3 py-2 border rounded-md shadow-sm focus:border-primary-600 focus:outline-none focus:ring-1 focus:ring-primary-600 ${
+                    className={`max-md:h-12 w-full px-3 py-2 border rounded-md shadow-sm placeholder:text-sm focus:outline-none  ${
                         touched && error ? 'border-red-500' : 'border-gray-300'
                     } ${className}`}
                     value={value}

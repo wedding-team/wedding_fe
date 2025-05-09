@@ -9,17 +9,23 @@ import StartSection from '../components/sections/home/StartSection';
 
 const Home = () => {
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col">
+        <div className="min-h-screen bg-slate-100/70 flex flex-col">
             <Navbar/>
-            <HeroSection/>
-
-            <main className="max-w-7xl mx-auto w-full px-4 lg:px-8 py-16 flex-1">
-                <StartSection/>
-                <FeaturesSection/>
-                <ProcessSection/>
-                <CallToAction/>
+            <main className="">
+                <HeroSection/>
+                <div className=" px-4 lg:px-8 py-8 flex-1">
+                    <div className="max-w-7xl mx-auto w-full">
+                        <FeaturesSection/>
+                        <StartSection/>
+                    </div>
+                </div>
+                <div className=" px-4 lg:px-8 py-16 flex-1">
+                    <div className="max-w-7xl mx-auto w-full">
+                        <ProcessSection/>
+                        <CallToAction/>
+                    </div>
+                </div>
             </main>
-
             <Footer/>
         </div>
     );

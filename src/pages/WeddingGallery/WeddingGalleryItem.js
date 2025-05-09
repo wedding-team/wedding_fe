@@ -36,61 +36,31 @@ function WeddingGalleryItem({image, index, onDelete, galleryImages, isSelected})
 
     return (
         <>
-            <div
-                ref={setNodeRef}
-                style={style}
-                {...attributes}
-                className={`relative focus:outline-none rounded-lg overflow-hidden ${
-                    isDragging ? "shadow-xl border-2 border-dashed border-blue-500" : "shadow-md"
-                }`}
-            >
-                <div
-                    onClick={handleImageClick}
-                    className={`w-full aspect-square cursor-pointer ${
-                        isSelected ? "ring-2 ring-blue-500" : ""
-                    }`}
-                >
+            <div ref={setNodeRef} style={style}{...attributes}
+                 className={`relative focus:outline-none rounded-lg overflow-hidden ${isDragging ? "shadow-xl border-2 border-dashed border-blue-500" : "shadow-md"}`}>
+                <div onClick={handleImageClick} className={`w-full aspect-square cursor-pointer ${isSelected ? "ring-2 ring-blue-500" : ""}`}>
                     {image.image_url ? (
-                        // eslint-disable-next-line jsx-a11y/img-redundant-alt
-                        <img
-                            src={image.image_url}
-                            alt={`Wedding gallery image ${index + 1}`}
+                        <img src={image.image_url} alt={`Wedding gallery ${index + 1}`}
                             className="w-full h-full object-top object-contain bg-gray-50"
-                            draggable="false"
-                        />
+                            draggable="false"/>
                     ) : (
                         <div className="flex items-center justify-center w-full h-full bg-gray-200">
                             <PhotoIcon className="w-16 h-16 text-gray-500" />
                         </div>
                     )}
-
-                    <div className="absolute bottom-0 left-0 right-0 bg-black/30 px-2 py-1 flex items-center justify-center gap-2">
-                        <button
-                            {...listeners}
-                            className="p-1 bg-white/80 hover:bg-white text-gray-700 rounded-md"
-                            title="Di chuyển"
-                        >
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/30 px-2 py-1 flex items-center justify-center gap-2 z-50">
+                        <button{...listeners} className="p-1 bg-white/80 hover:bg-white text-gray-700 rounded-md" title="Di chuyển">
                             <IoMdMove className="w-3 h-3 sm:w-5 sm:h-5" />
                         </button>
-                        <button
-                            onClick={handleDeleteClick}
-                            className="p-1 bg-red-100/80 hover:bg-red-100 text-red-600 rounded-md"
-                            title="Xoá"
-                        >
+                        <button onClick={handleDeleteClick} className="p-1 bg-red-100/80 hover:bg-red-100 text-red-600 rounded-md" title="Xoá">
                             <TrashIcon className="w-3 h-3 sm:w-5 sm:h-5" />
                         </button>
                     </div>
                 </div>
             </div>
-
             {image.image_url && (
-                <Lightbox
-                    open={isLightboxOpen}
-                    close={() => setIsLightboxOpen(false)}
-                    slides={slides}
-                    index={index}
-                    plugins={[Thumbnails]}
-                />
+                <Lightbox open={isLightboxOpen} close={() => setIsLightboxOpen(false)} slides={slides}
+                    index={index} plugins={[Thumbnails]}/>
             )}
         </>
     );

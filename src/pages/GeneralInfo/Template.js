@@ -40,8 +40,8 @@ function Template({formik}) {
 
     return (
         <div>
-            <label className="flex text-lg font-semibold text-gray-800 mb-2 gap-2 items-center">
-                <GrTemplate className="text-gray-600"/> Mẫu thiệp
+            <label className="flex text-lg font-semibold text-gray-700 mb-2 gap-2 items-center">
+                <GrTemplate/> Mẫu thiệp
             </label>
             <div className="border border-gray-300 h-[425px] md:h-[245px] rounded-xl overflow-hidden flex flex-col">
                 <div className="flex flex-col md:flex-row flex-1 overflow-hidden">

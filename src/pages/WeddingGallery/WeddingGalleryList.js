@@ -114,12 +114,15 @@ function WeddingGalleryList() {
 
     return (
         <div>
-            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
+            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragOver={handleDragOver}
+                        onDragEnd={handleDragEnd}>
                 <SortableContext items={images.map((img) => img.id)} strategy={verticalListSortingStrategy}>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 py-2 transition-all duration-200 ease-in-out">
+                    <div
+                        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 py-2 transition-all duration-200 ease-in-out">
                         {images.length > 0 ? (
                             images.map((image, index) => (
-                                <WeddingGalleryItem key={image.id} image={image} galleryImages={images} index={index} onDelete={handleDeleteClick}/>
+                                <WeddingGalleryItem key={image.id} image={image}
+                                                    galleryImages={images} index={index} onDelete={handleDeleteClick}/>
                             ))
                         ) : (
                             <p className="text-center text-gray-500 col-span-full">Chưa có ảnh nào.</p>
@@ -128,7 +131,8 @@ function WeddingGalleryList() {
                     </div>
                 </SortableContext>
             </DndContext>
-            <WeddingGalleryDelete isOpen={isDeleteModalOpen} onClose={() => setDeleteModalOpen(false)} onConfirm={handleConfirmDelete}/>
+            <WeddingGalleryDelete isOpen={isDeleteModalOpen} onClose={() => setDeleteModalOpen(false)}
+                                  onConfirm={handleConfirmDelete}/>
         </div>
     );
 }

@@ -21,7 +21,7 @@ function LoveStory() {
     return (
         <div className="shadow-sm bg-white rounded-lg p-5">
             <div className="flex justify-between items-center mb-4">
-                <h2 className="max-md:text-lg md:text-2xl font-semibold">Chuyện tình yêu</h2>
+                <h2 className="max-md:text-xl md:text-3xl font-semibold">Chuyện tình yêu</h2>
 
                 <button
                     onClick={() => openFormModal(null)}

@@ -8,6 +8,7 @@ import Template from "./Template";
 import Effect from "./Effect";
 
 function GeneralInfoForm({formik}) {
+    const minDate = new Date().toISOString().split("T")[0];
 
     return (
         <form onSubmit={formik.handleSubmit} className="">
@@ -26,7 +27,7 @@ function GeneralInfoForm({formik}) {
                         <label className="flex text-lg font-medium text-gray-700 items-center mb-2 gap-2">
                             <IoCalendarOutline/> Ngày cưới
                         </label>
-                        <DateTimeInput name="wedding_day" value={formik.values.wedding_day} onChange={formik.handleChange}
+                        <DateTimeInput min={minDate} name="wedding_day" value={formik.values.wedding_day} onChange={formik.handleChange}
                                        onBlur={formik.handleBlur}/>
                     </div>
                     <div>
@@ -42,7 +43,8 @@ function GeneralInfoForm({formik}) {
             <div className="w-full mt-8 flex justify-center">
                 <button
                     type="submit"
-                    className="flex items-center gap-2 bg-blue-500 text-white py-3 px-8 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-blue-400 hover:bg-blue-600 transition-all shadow-md"
+                    className="w-full sm:w-auto flex justify-center items-center gap-2 bg-red-500 text-white py-2 px-6 rounded-md font-medium hover:bg-red-600 transition"
+                    disabled={formik.isSubmitting}
                 >
                     <FiDownload className="text-lg"/>
                     <span>Lưu thông tin</span>

@@ -25,10 +25,10 @@ const ProcessSection = () => {
 
     return (
         <section className="mb-20 text-center">
-            <h2 className="max-md:text-2xl md:text-3xl font-bold text-primary-800 mb-4">
+            <h2 className="max-md:text-2xl md:text-3xl font-bold text-red-800 mb-4">
                 Thiệp Cưới Số Hoạt Động Như Thế Nào?
             </h2>
-            <div className="w-24 h-1 bg-primary-600 mx-auto mb-8"></div>
+            <div className="w-24 h-1 bg-red-600 mx-auto mb-8"></div>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed">
                 Quá trình tạo thiệp cưới số với Wedding QR Code cực kỳ đơn giản...
             </p>
@@ -39,7 +39,7 @@ const ProcessSection = () => {
             </div>
             <button
                 onClick={() => navigate('/wedding-info')}
-                className="mt-12 bg-primary-800 text-white px-8 py-4 rounded-full max-md:text-sm md:text-lg font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105 duration-300"
+                className="mt-12 bg-red-800 text-white px-8 py-4 rounded-full max-md:text-sm md:text-lg font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105 duration-300"
             >
                 Tạo Thiệp Ngay Hôm Nay
             </button>

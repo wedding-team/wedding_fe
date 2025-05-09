@@ -37,7 +37,7 @@ function GeneralInfo() {
 
     return (
         <div className="bg-white p-6 rounded-xl shadow-lg max-w-7xl mx-auto">
-            <h2 className="max-md:text-lg md:text-2xl font-semibold mb-6">Thông tin chung</h2>
+            <h2 className="max-md:text-xl md:text-3xl font-semibold mb-6">Thông tin chung</h2>
            <GeneralInfoForm formik={formik} />
         </div>
     );

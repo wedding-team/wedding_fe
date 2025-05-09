@@ -3,6 +3,8 @@ import React from "react";
 import {DateTimeInput} from "../../components/common/DateTimeInput";
 
 function WeddingEventForm({formik}) {
+    const minDate =  new Date().toISOString().split("T")[0];
+
     const getInputClasses = (fieldName) => {
         const baseClasses = "w-full rounded-lg border shadow-sm p-3 focus:outline-none text-sm transition-colors";
         if (formik.touched[fieldName] && formik.errors[fieldName]) {
@@ -82,7 +84,7 @@ function WeddingEventForm({formik}) {
                             <label className="block text-sm font-semibold text-gray-700 mb-1">Ngày tổ chức
                                 <span className="text-red-500 ml-1">*</span>
                             </label>
-                            <DateTimeInput name="event_date" value={formik.values.event_date}
+                            <DateTimeInput name="event_date" min={minDate} value={formik.values.event_date}
                                            onChange={formik.handleChange} onBlur={formik.handleBlur}
                                            className={getInputClasses("event_date")}/>
                             {renderErrorMessage("event_date")}

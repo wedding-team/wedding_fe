@@ -22,7 +22,7 @@ function WeddingEvent() {
     return (
         <div className="mx-auto p-4 md:p-6 bg-white max-w-screen-xl rounded-lg shadow-md">
             <div className="flex justify-between items-start sm:items-center mb-1 gap-2">
-                <h2 className="max-md:text-lg md:text-2xl font-semibold">Sự kiện cưới</h2>
+                <h2 className="max-md:text-xl md:text-3xl font-semibold">Sự kiện cưới</h2>
                 <button
                     onClick={() => openFormModal(null)}
                     className=" bg-blue-600 hover:bg-blue-700 flex items-center justify-center gap-2 text-xs md:text-base text-white font-semibold py-1 px-2 md:px-4 rounded-sm shadow-md focus:outline-none"
